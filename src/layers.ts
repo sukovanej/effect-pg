@@ -7,6 +7,7 @@ import * as Layer from '@effect/io/Layer';
 import { postgresConnectionError } from './errors';
 import {
   PostgresClientService,
+  PostgresPoolService,
   getPostgresConfig,
   getPostgresPool,
 } from './services';
@@ -34,7 +35,9 @@ export const client = pipe(
 
 export const pool = pipe(
   getPostgresConfig,
-  Effect.map((config) => new Pool(config))
+  Effect.map((config) => new Pool(config)),
+  Effect.tap(() => Effect.logTrace('Postgres pool initialized')),
+  (self) => Layer.effect(PostgresPoolService, self)
 );
 
 export const poolClient = pipe(
