@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.2
+
+### Patch Changes
+
+- fix: add dist
+
 ## 0.0.1
 
 ### Patch Changes
