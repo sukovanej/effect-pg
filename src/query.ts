@@ -10,12 +10,11 @@ import {
   postgresUnknownError,
   postgresValidationError,
 } from './errors';
-import { getPostgresClient } from './services';
+import { PostgresClientService } from './services';
 
 export const query = (queryText: string, values?: unknown[]) =>
   pipe(
-    getPostgresClient,
-    Effect.flatMap((client) =>
+    Effect.flatMap(PostgresClientService, (client) =>
       Effect.tryPromise(() => client.query(queryText, values))
     ),
     Effect.mapError((error) =>
