@@ -9,7 +9,6 @@
     "format": "prettier -w src",
     "changeset": "changeset",
     "version-up": "changeset version",
-    "publish": "changeset publish"
   },
   "keywords": [],
   "author": "",
