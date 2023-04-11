@@ -1,5 +1,12 @@
 # effect-pg
 
+## 0.0.4
+
+### Patch Changes
+
+- a199cc2: Export used underlaying pg types
+- d575a62: Remove unnecessary context combinators
+
 ## 0.0.3
 
 ### Patch Changes
