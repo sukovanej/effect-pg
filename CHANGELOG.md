@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.5
+
+### Patch Changes
+
+- Update peer deps
+
 ## 0.0.4
 
 ### Patch Changes
