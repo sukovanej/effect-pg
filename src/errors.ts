@@ -49,3 +49,7 @@ export const postgresUnexpectedNumberOfRowsError = (
   actual: number
 ): PostgresUnexpectedNumberOfRowsError =>
   ({ _tag: 'PostgresUnexpectedNumberOfRowsError', expected, actual } as const);
+
+export type PostgresQueryError =
+  | PostgresTableDoesntExistError
+  | PostgresUnknownError;
