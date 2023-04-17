@@ -1,6 +1,6 @@
 {
   "name": "effect-pg",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "node-pg wrapper for effect-ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
