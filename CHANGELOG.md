@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.6
+
+### Patch Changes
+
+- f80a2d9: simplify interface
+
 ## 0.0.5
 
 ### Patch Changes
