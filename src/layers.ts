@@ -2,17 +2,12 @@ import { Client, Pool } from 'pg';
 
 import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
-import * as Layer from '@effect/io/Layer';
 
 import { postgresConnectionError } from './errors';
-import {
-  PostgresClientService,
-  PostgresConfigService,
-  PostgresPoolService,
-} from './services';
+import { ClientService, ConfigService, PoolService } from './services';
 
-export const client = pipe(
-  Effect.map(PostgresConfigService, (config) => new Client(config)),
+export const clientLayer = pipe(
+  Effect.map(ConfigService, (config) => new Client(config)),
   Effect.flatMap((client) =>
     Effect.acquireRelease(
       pipe(
@@ -28,17 +23,17 @@ export const client = pipe(
         )
     )
   ),
-  Effect.toLayerScoped(PostgresClientService)
+  Effect.toLayerScoped(ClientService)
 );
 
-export const pool = pipe(
-  Effect.map(PostgresConfigService, (config) => new Pool(config)),
+export const poolLayer = pipe(
+  Effect.map(ConfigService, (config) => new Pool(config)),
   Effect.tap(() => Effect.logTrace('Postgres pool initialized')),
-  Effect.toLayerScoped(PostgresPoolService)
+  Effect.toLayerScoped(PoolService)
 );
 
-export const poolClient = pipe(
-  Effect.flatMap(PostgresPoolService, (pool) =>
+export const poolClientLayer = pipe(
+  Effect.flatMap(PoolService, (pool) =>
     Effect.acquireRelease(
       pipe(
         Effect.tryPromise(() => pool.connect()),
@@ -56,5 +51,5 @@ export const poolClient = pipe(
         )
     )
   ),
-  Effect.toLayerScoped(PostgresClientService)
+  Effect.toLayerScoped(ClientService)
 );
