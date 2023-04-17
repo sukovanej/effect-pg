@@ -1,25 +1,28 @@
-import { ClientBase } from 'pg';
+import { ClientBase, QueryResult } from 'pg';
 
 import * as Chunk from '@effect/data/Chunk';
-import { flow, pipe } from '@effect/data/Function';
+import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
 import * as Match from '@effect/match';
-import { ParseError } from '@effect/schema/ParseResult';
 
 import {
   PostgresQueryError,
   PostgresUnexpectedNumberOfRowsError,
   PostgresValidationError,
+  postgresDuplicateTableError,
   postgresTableDoesntExistError,
   postgresUnexpectedNumberOfRowsError,
   postgresUnknownError,
   postgresValidationError,
 } from './errors';
-import { PostgresClientService } from './services';
+import { ClientService } from './services';
 
-export const queryRaw = (queryText: string, values?: unknown[]) =>
+export const queryRaw = (
+  queryText: string,
+  values?: unknown[]
+): Effect.Effect<ClientBase, PostgresQueryError, QueryResult<any>> =>
   pipe(
-    Effect.flatMap(PostgresClientService, (client) =>
+    Effect.flatMap(ClientService, (client) =>
       Effect.tryPromise(() => client.query(queryText, values))
     ),
     Effect.mapError((error) =>
@@ -28,27 +31,34 @@ export const queryRaw = (queryText: string, values?: unknown[]) =>
         Match.when({ code: '42P01' }, (error) =>
           postgresTableDoesntExistError(error)
         ),
+        Match.when({ code: '42P07' }, (error) =>
+          postgresDuplicateTableError(error)
+        ),
         Match.orElse(postgresUnknownError)
       )
     )
   );
 
-type Parser<A> = (row: unknown) => Effect.Effect<never, ParseError, A>;
+type Parser<E, A> = (row: unknown) => Effect.Effect<never, E, A>;
 
 export const queryArray: {
-  <A>(
+  <A, E>(
     queryText: string,
-    parse: (row: unknown) => Effect.Effect<never, ParseError, A>,
+    parse: Parser<E, A>,
     values?: unknown[]
-  ): Effect.Effect<ClientBase, PostgresQueryError, readonly A[]>;
+  ): Effect.Effect<
+    ClientBase,
+    PostgresQueryError | PostgresValidationError<E>,
+    readonly A[]
+  >;
   (queryText: string, values?: unknown[]): Effect.Effect<
     ClientBase,
-    PostgresQueryError | PostgresValidationError,
+    PostgresQueryError,
     readonly unknown[]
   >;
-} = <A>(
+} = <E, A>(
   queryText: string,
-  ...args: [parse: Parser<A>, values?: unknown[]] | [values?: unknown[]]
+  ...args: [parse: Parser<E, A>, values?: unknown[]] | [values?: unknown[]]
 ): Effect.Effect<ClientBase, any, unknown[] | readonly A[]> => {
   const values =
     args.length === 2 ? args[1] : Array.isArray(args[0]) ? args[0] : undefined;
@@ -57,7 +67,7 @@ export const queryArray: {
 
   const result = pipe(
     queryRaw(queryText, values),
-    Effect.map(({ rows }) => rows)
+    Effect.map(({ rows }) => rows as unknown[])
   );
 
   if (!parse) {
@@ -67,39 +77,35 @@ export const queryArray: {
   return pipe(
     result,
     Effect.flatMap((rows) =>
-      Effect.forEach(
-        rows,
-        flow(parse, Effect.mapError(postgresValidationError))
+      Effect.forEach(rows, (row) =>
+        pipe(parse(row), Effect.mapError(postgresValidationError))
       )
     ),
-    Effect.map(Chunk.toReadonlyArray),
-    (x) => x
+    Effect.map(Chunk.toReadonlyArray)
   );
 };
 
 export const queryOne: {
-  <A>(
+  <E, A>(
     queryText: string,
-    parse: (row: unknown) => Effect.Effect<never, ParseError, A>,
+    parse: Parser<E, A>,
     values?: unknown[]
   ): Effect.Effect<
     ClientBase,
     | PostgresQueryError
     | PostgresUnexpectedNumberOfRowsError
-    | PostgresValidationError,
-    readonly A[]
+    | PostgresValidationError<E>,
+    A
   >;
   (queryText: string, values?: unknown[]): Effect.Effect<
     ClientBase,
-    | PostgresQueryError
-    | PostgresUnexpectedNumberOfRowsError
-    | PostgresValidationError,
-    readonly unknown[]
+    PostgresQueryError | PostgresUnexpectedNumberOfRowsError,
+    unknown
   >;
-} = <A>(
+} = <E, A>(
   queryText: string,
-  ...args: [parse: Parser<A>, values?: unknown[]] | [values?: unknown[]]
-): Effect.Effect<ClientBase, any, unknown[] | readonly A[]> => {
+  ...args: [parse: Parser<E, A>, values?: unknown[]] | [values?: unknown[]]
+): Effect.Effect<ClientBase, any, unknown | A> => {
   const values =
     args.length === 2 ? args[1] : Array.isArray(args[0]) ? args[0] : undefined;
   const parse =
@@ -126,3 +132,21 @@ export const queryOne: {
     )
   );
 };
+
+export const transaction = <R, E, A>(
+  self: Effect.Effect<R, E, A>
+): Effect.Effect<R | ClientBase, E | PostgresQueryError, A> =>
+  pipe(
+    queryRaw('BEGIN'),
+    Effect.flatMap(() => self),
+    Effect.tap(() => queryRaw('COMMIT'))
+  );
+
+export const transactionRollback = <R, E, A>(
+  self: Effect.Effect<R, E, A>
+): Effect.Effect<R | ClientBase, E | PostgresQueryError, A> =>
+  pipe(
+    queryRaw('BEGIN'),
+    Effect.flatMap(() => self),
+    Effect.tap(() => queryRaw('ROLLBACK'))
+  );
