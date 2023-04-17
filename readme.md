@@ -13,6 +13,25 @@ Install the package using
 pnpm install effect-pg
 ```
 
+and also install peer dependencies.
+
+```bash
+pnpm install @effect/data @effect/io
+```
+
+The following example assumes you have a postgres running. Setup the environment
+variables as follows.
+
+```
+$ export POSTGRES_PORT=<PORT>
+$ export POSTGRES_USER=<USER>
+$ export POSTGRES_PASSWORD=<PASSWORD>
+```
+
+Optionally, also set `POSTGRES_HOST` and `POSTGRES_NAME`. The example below will
+create a new `users` table, insert a single row and fetch the row. The persisted
+row is immediately fetched and logged out.
+
 ```typescript
 import * as Pg from 'effect-pg';
 
