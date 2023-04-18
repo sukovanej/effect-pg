@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.7
+
+### Patch Changes
+
+- 3b3ef33: update dependencies
+
 ## 0.0.6
 
 ### Patch Changes
