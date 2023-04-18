@@ -80,8 +80,7 @@ export const queryArray: {
       Effect.forEach(rows, (row) =>
         pipe(parse(row), Effect.mapError(postgresValidationError))
       )
-    ),
-    Effect.map(Chunk.toReadonlyArray)
+    )
   );
 };
 
