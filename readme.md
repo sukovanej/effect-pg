@@ -13,12 +13,6 @@ Install the package using
 pnpm install effect-pg
 ```
 
-and also install peer dependencies.
-
-```bash
-pnpm install @effect/data @effect/io
-```
-
 The following example assumes you have a postgres running. Setup the environment
 variables as follows.
 
