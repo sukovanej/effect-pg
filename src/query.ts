@@ -1,8 +1,8 @@
 import { ClientBase, QueryResult } from 'pg';
 
-import * as Chunk from '@effect/data/Chunk';
 import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
+import * as Exit from '@effect/io/Exit';
 import * as Match from '@effect/match';
 
 import {
@@ -135,17 +135,25 @@ export const queryOne: {
 export const transaction = <R, E, A>(
   self: Effect.Effect<R, E, A>
 ): Effect.Effect<R | ClientBase, E | PostgresQueryError, A> =>
-  pipe(
+  Effect.acquireUseRelease(
     queryRaw('BEGIN'),
-    Effect.flatMap(() => self),
-    Effect.tap(() => queryRaw('COMMIT'))
+    () => self,
+    (_, exit) =>
+      pipe(
+        exit,
+        Exit.match(
+          () => queryRaw('COMMIT'),
+          () => queryRaw('ROLLBACK')
+        ),
+        Effect.orDie
+      )
   );
 
 export const transactionRollback = <R, E, A>(
   self: Effect.Effect<R, E, A>
 ): Effect.Effect<R | ClientBase, E | PostgresQueryError, A> =>
-  pipe(
+  Effect.acquireUseRelease(
     queryRaw('BEGIN'),
-    Effect.flatMap(() => self),
-    Effect.tap(() => queryRaw('ROLLBACK'))
+    () => self,
+    () => Effect.orDie(queryRaw('ROLLBACK'))
   );
