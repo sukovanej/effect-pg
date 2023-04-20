@@ -1,5 +1,12 @@
 # effect-pg
 
+## 0.0.8
+
+### Patch Changes
+
+- a17466e: use /io and /data as direct dependencies
+- d6e4c2c: fix transaction
+
 ## 0.0.7
 
 ### Patch Changes
