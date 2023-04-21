@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.9
+
+### Patch Changes
+
+- 245fec6: update dependencies
+
 ## 0.0.8
 
 ### Patch Changes
