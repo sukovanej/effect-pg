@@ -27,8 +27,26 @@ export const clientLayer = pipe(
 );
 
 export const poolLayer = pipe(
-  Effect.map(ConfigService, (config) => new Pool(config)),
-  Effect.tap(() => Effect.logTrace('Postgres pool initialized')),
+  Effect.acquireRelease(
+    pipe(
+      Effect.map(ConfigService, (config) => new Pool(config)),
+      Effect.tap(() => Effect.logTrace('Postgres pool initialized'))
+    ),
+    (pool) =>
+      pipe(
+        Effect.logDebug('Releasing postgres pool'),
+        Effect.as([pool.idleCount, pool.waitingCount]),
+        Effect.tap(() => Effect.tryPromise(() => pool.end())),
+        Effect.tap(([idle, waiting]) =>
+          pipe(
+            Effect.logDebug('Postgres pool ended'),
+            Effect.logAnnotate('idleConnectionsCounts', `${idle}`),
+            Effect.logAnnotate('waitingConnectionsCounts', `${waiting}`)
+          )
+        ),
+        Effect.orDie
+      )
+  ),
   Effect.toLayerScoped(PoolService)
 );
 
