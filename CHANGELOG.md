@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.10
+
+### Patch Changes
+
+- 6b301f3: Make poolLayer scoped, add logging.
+
 ## 0.0.9
 
 ### Patch Changes
