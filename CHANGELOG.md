@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.14
+
+### Patch Changes
+
+- 8361319: Update dependencies
+
 ## 0.0.13
 
 ### Patch Changes
