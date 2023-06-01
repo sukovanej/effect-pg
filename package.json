@@ -18,16 +18,16 @@
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
-    "@types/pg": "^8.6.6",
-    "@vitest/coverage-c8": "^0.31.0",
+    "@types/pg": "^8.10.1",
+    "@vitest/coverage-c8": "^0.31.4",
     "prettier": "^2.8.8",
     "typescript": "^5.0.4",
-    "vitest": "^0.31.0"
+    "vitest": "^0.31.4"
   },
   "dependencies": {
-    "@effect/data": "^0.12.2",
-    "@effect/io": "^0.25.8",
-    "@effect/match": "^0.19.1",
-    "pg": "^8.10.0"
+    "@effect/data": "^0.12.4",
+    "@effect/io": "^0.25.13",
+    "@effect/match": "^0.23.4",
+    "pg": "^8.11.0"
   }
 }
