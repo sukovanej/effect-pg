@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.16
+
+### Patch Changes
+
+- a6874ce: Update dependencies.
+
 ## 0.0.15
 
 ### Patch Changes
