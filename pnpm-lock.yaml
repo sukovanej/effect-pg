@@ -1,15 +1,19 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@effect/data':
-    specifier: ^0.12.4
-    version: 0.12.4
+    specifier: ^0.12.5
+    version: 0.12.5
   '@effect/io':
-    specifier: ^0.25.13
-    version: 0.25.13
+    specifier: ^0.26.0
+    version: 0.26.0
   '@effect/match':
-    specifier: ^0.23.4
-    version: 0.23.4
+    specifier: ^0.24.0
+    version: 0.24.0
   pg:
     specifier: ^8.11.0
     version: 8.11.0
@@ -31,8 +35,8 @@ devDependencies:
     specifier: ^2.8.8
     version: 2.8.8
   typescript:
-    specifier: ^5.0.4
-    version: 5.0.4
+    specifier: ^5.1.3
+    version: 5.1.3
   vitest:
     specifier: ^0.31.4
     version: 0.31.4
@@ -356,27 +360,33 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@effect/data@0.12.4:
-    resolution: {integrity: sha512-QawuBkTEib4JetN6dmCURbjW9OK1dHdRLekNfuiPZefQdxQnnoFFTKBxPK5z60xmTjY4ZNawfKvcSpsuEzKiiQ==}
+  /@effect/data@0.12.5:
+    resolution: {integrity: sha512-gmHSsG4earpIWufwCNT1R1pZ5BIe7z0bMmexnAFOT9csc8bwTSzk1e5QAd/65/vyczf/cMMrXgjpasdxlJ5POA==}
     dev: false
 
   /@effect/io@0.25.13:
     resolution: {integrity: sha512-NdZFSaNbG6AN8bzSAPdmi95AXgHWr4dH58R8viqbFBb0zmfQ/PQq+5XEsC++qy/qpT/ZLzpvJJWhW9jf1atq2g==}
     dependencies:
-      '@effect/data': 0.12.4
+      '@effect/data': 0.12.5
     dev: false
 
-  /@effect/match@0.23.4:
-    resolution: {integrity: sha512-bt8h5JySwV6s/HxfHz8d20drvTi1/45Ka67C4mZQPoQu4KaxLDnLMWYP/lq6eZCv7n6+rIfDEZ9aYZZmwoK/DQ==}
+  /@effect/io@0.26.0:
+    resolution: {integrity: sha512-umwZ/sRoV7zb/8WwoiK7xWoypqvY6C1EXWEGORpViAFUTx3/bXc9i7JtdttTWVokXb3qogrxGX2SHopB20I4vQ==}
     dependencies:
-      '@effect/data': 0.12.4
+      '@effect/data': 0.12.5
+    dev: false
+
+  /@effect/match@0.24.0:
+    resolution: {integrity: sha512-5Ws5chniAYnVuMbzlmndqGcbQVrfo0sdkwGaSVov7R3pXZA6gKyBY09Xl9xywgcNjFJ/0UYwVnjs95MEmBhYdQ==}
+    dependencies:
+      '@effect/data': 0.12.5
       '@effect/schema': 0.19.3
     dev: false
 
   /@effect/schema@0.19.3:
     resolution: {integrity: sha512-jR7o19HBX7PBYRLV1G6ZlM90giRe+lZkA6BqVNamkhNfVsHU4MnGr2lqM2H4fy4MgR744GGXuxCDjVdydkMvAw==}
     dependencies:
-      '@effect/data': 0.12.4
+      '@effect/data': 0.12.5
       '@effect/io': 0.25.13
       fast-check: 3.10.0
     dev: false
@@ -754,14 +764,14 @@ packages:
       '@vitest/utils': 0.31.4
       concordance: 5.0.4
       p-limit: 4.0.0
-      pathe: 1.1.0
+      pathe: 1.1.1
     dev: true
 
   /@vitest/snapshot@0.31.4:
     resolution: {integrity: sha512-LemvNumL3NdWSmfVAMpXILGyaXPkZbG5tyl6+RQSdcHnTj6hvA49UAI8jzez9oQyE/FWLKRSNqTGzsHuk89LRA==}
     dependencies:
       magic-string: 0.30.0
-      pathe: 1.1.0
+      pathe: 1.1.1
       pretty-format: 27.5.1
     dev: true
 
@@ -1986,7 +1996,7 @@ packages:
     resolution: {integrity: sha512-HT5mcgIQKkOrZecOjOX3DJorTikWXwsBfpcr/MGBkhfWcjiqvnaL/9ppxvIUXfjT6xt4DVIAsN9fMUz1ev4bIw==}
     dependencies:
       acorn: 8.8.2
-      pathe: 1.1.0
+      pathe: 1.1.1
       pkg-types: 1.0.3
       ufo: 1.1.2
     dev: true
@@ -2138,8 +2148,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /pathe@1.1.0:
-    resolution: {integrity: sha512-ODbEPR0KKHqECXW1GoxdDb+AZvULmXjVPy4rt+pGo2+TnjJTIPJQSVS6N63n8T2Ip+syHhbn52OewKicV0373w==}
+  /pathe@1.1.1:
+    resolution: {integrity: sha512-d+RQGp0MAYTIaDBIMmOfMwz3E+LOZnxx1HZd5R18mmCZY0QBlK0LDZfPc8FW8Ed2DlvsuE6PRjroDY+wg4+j/Q==}
     dev: true
 
   /pathval@1.1.1:
@@ -2252,7 +2262,7 @@ packages:
     dependencies:
       jsonc-parser: 3.2.0
       mlly: 1.3.0
-      pathe: 1.1.0
+      pathe: 1.1.1
     dev: true
 
   /postcss@8.4.24:
@@ -2788,9 +2798,9 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /typescript@5.0.4:
-    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
-    engines: {node: '>=12.20'}
+  /typescript@5.1.3:
+    resolution: {integrity: sha512-XH627E9vkeqhlZFQuL+UsyAXEnibT0kWR2FWONlr4sTjvxyJYnyefgrkyECLzM5NenmKzRAy2rR/OlYLA1HkZw==}
+    engines: {node: '>=14.17'}
     hasBin: true
     dev: true
 
@@ -2836,7 +2846,7 @@ packages:
       cac: 6.7.14
       debug: 4.3.4
       mlly: 1.3.0
-      pathe: 1.1.0
+      pathe: 1.1.1
       picocolors: 1.0.0
       vite: 4.3.9(@types/node@20.2.5)
     transitivePeerDependencies:
@@ -2929,7 +2939,7 @@ packages:
       debug: 4.3.4
       local-pkg: 0.4.3
       magic-string: 0.30.0
-      pathe: 1.1.0
+      pathe: 1.1.1
       picocolors: 1.0.0
       std-env: 3.3.3
       strip-literal: 1.0.1
