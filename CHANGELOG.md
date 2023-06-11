@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.17
+
+### Patch Changes
+
+- bbdf472: Update /data.
+
 ## 0.0.16
 
 ### Patch Changes
