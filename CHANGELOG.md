@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.18
+
+### Patch Changes
+
+- f260af5: Update dependencies.
+
 ## 0.0.17
 
 ### Patch Changes
