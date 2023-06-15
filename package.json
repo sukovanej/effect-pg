@@ -27,7 +27,7 @@
   "dependencies": {
     "@effect/data": "^0.12.6",
     "@effect/io": "^0.26.0",
-    "@effect/match": "^0.24.0",
+    "@effect/match": "^0.24.2",
     "pg": "^8.11.0"
   }
 }
