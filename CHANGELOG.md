@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.0.20
+
+### Patch Changes
+
+- dd69b94: Update dependencies.
+
 ## 0.0.19
 
 ### Patch Changes
