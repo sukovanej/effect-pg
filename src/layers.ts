@@ -40,8 +40,8 @@ export const poolLayer = pipe(
         Effect.tap(([idle, waiting]) =>
           pipe(
             Effect.logDebug('Postgres pool ended'),
-            Effect.logAnnotate('idleConnectionsCounts', `${idle}`),
-            Effect.logAnnotate('waitingConnectionsCounts', `${waiting}`)
+            Effect.annotateLogs('idleConnectionsCounts', `${idle}`),
+            Effect.annotateLogs('waitingConnectionsCounts', `${waiting}`)
           )
         ),
         Effect.orDie
