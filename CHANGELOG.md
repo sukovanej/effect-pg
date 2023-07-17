@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.1.0
+
+### Minor Changes
+
+- c31a4c6: Update dependencies.
+
 ## 0.0.23
 
 ### Patch Changes
