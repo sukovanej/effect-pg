@@ -51,11 +51,10 @@ export const queryArray: {
     PostgresQueryError | PostgresValidationError<E>,
     readonly A[]
   >;
-  (queryText: string, values?: unknown[]): Effect.Effect<
-    ClientBase,
-    PostgresQueryError,
-    readonly unknown[]
-  >;
+  (
+    queryText: string,
+    values?: unknown[]
+  ): Effect.Effect<ClientBase, PostgresQueryError, readonly unknown[]>;
 } = <E, A>(
   queryText: string,
   ...args: [parse: Parser<E, A>, values?: unknown[]] | [values?: unknown[]]
@@ -74,12 +73,9 @@ export const queryArray: {
     return result;
   }
 
-  return pipe(
-    result,
-    Effect.flatMap((rows) =>
-      Effect.forEach(rows, (row) =>
-        pipe(parse(row), Effect.mapError(postgresValidationError))
-      )
+  return Effect.flatMap(result, (rows) =>
+    Effect.forEach(rows, (row) =>
+      Effect.mapError(parse(row), postgresValidationError)
     )
   );
 };
@@ -96,7 +92,10 @@ export const queryOne: {
     | PostgresValidationError<E>,
     A
   >;
-  (queryText: string, values?: unknown[]): Effect.Effect<
+  (
+    queryText: string,
+    values?: unknown[]
+  ): Effect.Effect<
     ClientBase,
     PostgresQueryError | PostgresUnexpectedNumberOfRowsError,
     unknown
@@ -112,10 +111,9 @@ export const queryOne: {
 
   const result = pipe(
     queryRaw(queryText, values),
-    Effect.filterOrElseWith(
+    Effect.filterOrFail(
       ({ rows }) => rows.length === 1,
-      ({ rows }) =>
-        Effect.fail(postgresUnexpectedNumberOfRowsError(1, rows.length))
+      ({ rows }) => postgresUnexpectedNumberOfRowsError(1, rows.length)
     ),
     Effect.map(({ rows }) => rows[0] as unknown)
   );
@@ -141,10 +139,10 @@ export const transaction = <R, E, A>(
     (_, exit) =>
       pipe(
         exit,
-        Exit.match(
-          () => queryRaw('COMMIT'),
-          () => queryRaw('ROLLBACK')
-        ),
+        Exit.match({
+          onSuccess: () => queryRaw('COMMIT'),
+          onFailure: () => queryRaw('ROLLBACK'),
+        }),
         Effect.orDie
       )
   );
