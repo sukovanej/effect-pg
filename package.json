@@ -19,15 +19,15 @@
     "@changesets/cli": "^2.26.2",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "@types/pg": "^8.10.2",
-    "@vitest/coverage-c8": "^0.32.2",
-    "prettier": "^2.8.8",
-    "typescript": "^5.1.5",
-    "vitest": "^0.32.2"
+    "@vitest/coverage-c8": "^0.33.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6",
+    "vitest": "^0.33.0"
   },
   "dependencies": {
-    "@effect/data": "^0.12.9",
-    "@effect/io": "^0.27.2",
-    "@effect/match": "^0.24.5",
+    "@effect/data": "^0.15.0",
+    "@effect/io": "^0.33.0",
+    "@effect/match": "^0.27.1",
     "pg": "^8.11.1"
   }
 }

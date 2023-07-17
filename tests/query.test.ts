@@ -1,3 +1,4 @@
+import * as Either from '@effect/data/Either';
 import { pipe } from '@effect/data/Function';
 import * as RA from '@effect/data/ReadonlyArray';
 import * as Config from '@effect/io/Config';
@@ -18,33 +19,32 @@ const run = (self: Effect.Effect<Pg.ClientBase, unknown, unknown>) =>
     self,
     Pg.transactionRollback,
     Effect.provideLayer(Pg.clientLayer),
-    Effect.provideServiceEffect(
-      Pg.ConfigService,
-      Effect.config(postgresConfig)
-    ),
-    Effect.runPromise
+    Effect.provideServiceEffect(Pg.ConfigService, Effect.config(postgresConfig))
   );
 
-test('Simple test', async () => {
+test('Simple test 1', async () => {
   await pipe(
     Pg.queryRaw('CREATE TABLE users (name TEXT NOT NULL)'),
     Effect.flatMap(() =>
       Pg.queryRaw("INSERT INTO users (name) VALUES ('milan')")
     ),
     Effect.flatMap(() => Pg.queryOne('SELECT * FROM users')),
-    Effect.map((row) => {
-      expect(row).toEqual({ name: 'milan' });
-    }),
+    Effect.flatMap((row) =>
+      Effect.sync(() => {
+        expect(row).toEqual({ name: 'milan' });
+      })
+    ),
     Effect.flatMap(() => Pg.queryArray('SELECT * FROM users')),
     Effect.map((rows) => {
       expect(rows).toEqual([{ name: 'milan' }]);
     }),
-    run
+    run,
+    Effect.runPromise
   );
 });
 
-test('Simple test', async () => {
-  await pipe(
+test('Simple test 2', async () => {
+  const result = await pipe(
     Pg.queryRaw('CREATE TABLE users (name TEXT NOT NULL)'),
     Effect.flatMap(() =>
       Effect.all(
@@ -55,18 +55,17 @@ test('Simple test', async () => {
       )
     ),
     Effect.flatMap(() => Pg.queryOne('SELECT * FROM users')),
-    Effect.map(() => {
-      assert.fail('Expected failure');
-    }),
-    Effect.catchAll((error) => {
-      expect(error).toEqual({
-        _tag: 'PostgresUnexpectedNumberOfRowsError',
-        expected: 1,
-        actual: 3,
-      });
-      return Effect.unit();
-    }),
-    run
+    run,
+    Effect.either,
+    Effect.runPromise
+  );
+
+  expect(result).toEqual(
+    Either.left({
+      _tag: 'PostgresUnexpectedNumberOfRowsError',
+      expected: 1,
+      actual: 3,
+    })
   );
 });
 
@@ -78,9 +77,10 @@ test('Table doesnt exist error', async () => {
     }),
     Effect.catchAll((error) => {
       expect(error._tag).toEqual('PostgresTableDoesntExistError');
-      return Effect.unit();
+      return Effect.unit;
     }),
-    run
+    run,
+    Effect.runPromise
   );
 });
 
@@ -95,9 +95,10 @@ test('Duplicate table error', async () => {
     }),
     Effect.catchAll((error) => {
       expect(error._tag).toEqual('PostgresDuplicateTableError');
-      return Effect.unit();
+      return Effect.unit;
     }),
-    run
+    run,
+    Effect.runPromise
   );
 });
 
@@ -112,7 +113,7 @@ test('Pool', async () => {
     }),
     Effect.catchAll((error) => {
       expect(error._tag).toEqual('PostgresDuplicateTableError');
-      return Effect.unit();
+      return Effect.unit;
     }),
     Pg.transactionRollback,
     Effect.provideLayer(Pg.poolClientLayer),
