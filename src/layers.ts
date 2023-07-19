@@ -15,12 +15,12 @@ export const clientLayer = pipe(
         Effect.tryPromise(() => client.connect()),
         Effect.mapError(postgresConnectionError),
         Effect.as(client),
-        Effect.tap(() => Effect.log('Postgres connection acquired', 'Trace'))
+        Effect.tap(() => Effect.logDebug('Postgres connection acquired'))
       ),
       (client) =>
         pipe(
           Effect.sync(() => client.end()),
-          Effect.tap(() => Effect.log('Postgres connection released', 'Debug'))
+          Effect.tap(() => Effect.logDebug('Postgres connection released'))
         )
     )
   ),
@@ -31,16 +31,16 @@ export const poolLayer = pipe(
   Effect.acquireRelease(
     pipe(
       Effect.map(ConfigService, (config) => new Pool(config)),
-      Effect.tap(() => Effect.log('Postgres pool initialized', 'Trace'))
+      Effect.tap(() => Effect.logDebug('Postgres pool initialized'))
     ),
     (pool) =>
       pipe(
-        Effect.log('Releasing postgres pool', 'Debug'),
+        Effect.logDebug('Releasing postgres pool'),
         Effect.as([pool.idleCount, pool.waitingCount]),
         Effect.tap(() => Effect.tryPromise(() => pool.end())),
         Effect.tap(([idle, waiting]) =>
           pipe(
-            Effect.log('Postgres pool ended', 'Debug'),
+            Effect.logDebug('Postgres pool ended'),
             Effect.annotateLogs('idleConnectionsCounts', `${idle}`),
             Effect.annotateLogs('waitingConnectionsCounts', `${waiting}`)
           )
@@ -58,14 +58,14 @@ export const poolClientLayer = pipe(
         Effect.tryPromise(() => pool.connect()),
         Effect.mapError(postgresConnectionError),
         Effect.tap(() =>
-          Effect.log('Postgres connection acquired from pool', 'Trace')
+          Effect.logDebug('Postgres connection acquired from pool')
         )
       ),
       (client) =>
         pipe(
           Effect.sync(() => client.release()),
           Effect.tap(() =>
-            Effect.log('Postgres connection released to pool', 'Trace')
+            Effect.logDebug('Postgres connection released to pool')
           )
         )
     )
