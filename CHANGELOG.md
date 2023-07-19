@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.2.0
+
+### Minor Changes
+
+- eda5105: Update dependencies.
+
 ## 0.1.0
 
 ### Minor Changes
