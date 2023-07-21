@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.2.2
+
+### Patch Changes
+
+- bbc0506: Update /data and /io.
+
 ## 0.2.1
 
 ### Patch Changes
