@@ -1,5 +1,12 @@
 # effect-pg
 
+## 0.2.3
+
+### Patch Changes
+
+- 7726dcd: Update /data.
+- fdbb369: Update /data
+
 ## 0.2.2
 
 ### Patch Changes
