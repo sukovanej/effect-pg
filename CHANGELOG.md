@@ -1,5 +1,12 @@
 # effect-pg
 
+## 0.2.4
+
+### Patch Changes
+
+- 2d7b87d: Update dependencies.
+- d914065: Update /io and /match.
+
 ## 0.2.3
 
 ### Patch Changes
