@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.3.0
+
+### Minor Changes
+
+- c133507: Update /io and /match.
+
 ## 0.2.4
 
 ### Patch Changes
