@@ -4,8 +4,5 @@ export default defineConfig({
   test: {
     setupFiles: ['tests/setupTests.ts'],
     globals: true,
-    coverage: {
-      provider: 'c8',
-    },
   },
 });
