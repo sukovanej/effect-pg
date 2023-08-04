@@ -9,11 +9,11 @@ dependencies:
     specifier: ^0.17.1
     version: 0.17.1
   '@effect/io':
-    specifier: ^0.37.1
-    version: 0.37.1
+    specifier: ^0.38.0
+    version: 0.38.0(@effect/data@0.17.1)
   '@effect/match':
-    specifier: ^0.31.0
-    version: 0.31.0
+    specifier: ^0.32.0
+    version: 0.32.0(@effect/data@0.17.1)(@effect/schema@0.33.0)
   pg:
     specifier: ^8.11.2
     version: 8.11.2
@@ -24,7 +24,7 @@ devDependencies:
     version: 2.26.2
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.2.0
-    version: 4.2.0(prettier@3.0.0)
+    version: 4.2.0(prettier@3.0.1)
   '@types/pg':
     specifier: ^8.10.2
     version: 8.10.2
@@ -32,8 +32,8 @@ devDependencies:
     specifier: ^0.34.1
     version: 0.34.1(vitest@0.34.1)
   prettier:
-    specifier: ^3.0.0
-    version: 3.0.0
+    specifier: ^3.0.1
+    version: 3.0.1
   typescript:
     specifier: ^5.1.6
     version: 5.1.6
@@ -364,24 +364,32 @@ packages:
     resolution: {integrity: sha512-QCYkLE5Y5Dm5Yax5R3GmW4ZIgTx7W+kSZ7yq5eqQ/mFWa8i4yxbLuu8cudqzdeZtRtTGZKlhDxfFfgVtMywXJg==}
     dev: false
 
-  /@effect/io@0.37.1:
-    resolution: {integrity: sha512-Ez3GfcG+gDDfAiBXtSjJpSrPU5Guiyw69LsYkMtIukFwyNwpHWLhYaVgfVbVjoQasil8KiFSQJSd5DbJL6nqPg==}
+  /@effect/io@0.38.0(@effect/data@0.17.1):
+    resolution: {integrity: sha512-qlVC9ASxNC+L2NKX5qOV9672CE5wWizfwBSFaX2XLI7CC118WRvohCTIPQ52n50Bj5TmR20+na+U9C7e4VkqzA==}
+    peerDependencies:
+      '@effect/data': ^0.17.1
     dependencies:
       '@effect/data': 0.17.1
     dev: false
 
-  /@effect/match@0.31.0:
-    resolution: {integrity: sha512-QT0HSh19Y6iHAghc51Yt/rYDU9/jhs7O+2kSEQiJqj4xqCLjfJONWsK19xBCNbuV5bt3ZO1NGFqvsWeNR7ZhDg==}
+  /@effect/match@0.32.0(@effect/data@0.17.1)(@effect/schema@0.33.0):
+    resolution: {integrity: sha512-04QfnIgCcMnnNbGxTv2xa9/7q1c5kgpsBodqTUZ8eX86A/EdE8Czz+JkVarG00/xE+nYhQLXOXCN9Zj+dtqVkQ==}
+    peerDependencies:
+      '@effect/data': ^0.17.1
+      '@effect/schema': ^0.33.0
     dependencies:
       '@effect/data': 0.17.1
-      '@effect/schema': 0.32.0
+      '@effect/schema': 0.33.0(@effect/data@0.17.1)(@effect/io@0.38.0)
     dev: false
 
-  /@effect/schema@0.32.0:
-    resolution: {integrity: sha512-4HJK/cFkVPdIjYICy0eRsL7JuuLJ6mE3aJC5rX9OuUIei/qfctFEEX2NaARjtGX7hACBrRcuJCNwiq+54TTjFw==}
+  /@effect/schema@0.33.0(@effect/data@0.17.1)(@effect/io@0.38.0):
+    resolution: {integrity: sha512-K/IDp8aZpqqy2IBydnRtjNF7Sg/qZjiR5t+OANDZ2yOmTHRgtvWM4fwYV5kGYzEBZaBZEqUGjzj4KOqbsQhCEw==}
+    peerDependencies:
+      '@effect/data': ^0.17.1
+      '@effect/io': ^0.38.0
     dependencies:
       '@effect/data': 0.17.1
-      '@effect/io': 0.37.1
+      '@effect/io': 0.38.0(@effect/data@0.17.1)
       fast-check: 3.12.0
     dev: false
 
@@ -674,7 +682,7 @@ packages:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
     dev: true
 
-  /@trivago/prettier-plugin-sort-imports@4.2.0(prettier@3.0.0):
+  /@trivago/prettier-plugin-sort-imports@4.2.0(prettier@3.0.1):
     resolution: {integrity: sha512-YBepjbt+ZNBVmN3ev1amQH3lWCmHyt5qTbLCp/syXJRu/Kw2koXh44qayB1gMRxcL/gV8egmjN5xWSrYyfUtyw==}
     peerDependencies:
       '@vue/compiler-sfc': 3.x
@@ -689,7 +697,7 @@ packages:
       '@babel/types': 7.17.0
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 3.0.0
+      prettier: 3.0.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -722,8 +730,8 @@ packages:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: true
 
-  /@types/node@20.4.5:
-    resolution: {integrity: sha512-rt40Nk13II9JwQBdeYqmbn2Q6IVTA5uPhvSO+JVqdXw/6/4glI6oR9ezty/A9Hg5u7JH4OmYmuQ+XvjKm0Datg==}
+  /@types/node@20.4.7:
+    resolution: {integrity: sha512-bUBrPjEry2QUTsnuEjzjbS7voGWCc30W0qzgMf90GPeDGFRakvrz47ju+oqDAKCXLUCe39u57/ORMl/O/04/9g==}
     dev: true
 
   /@types/normalize-package-data@2.4.1:
@@ -733,7 +741,7 @@ packages:
   /@types/pg@8.10.2:
     resolution: {integrity: sha512-MKFs9P6nJ+LAeHLU3V0cODEOgyThJ3OAnmOlsZsxux6sfQs3HRXR5bBn7xG5DjckEFhTAxsXi7k7cd0pCMxpJw==}
     dependencies:
-      '@types/node': 20.4.5
+      '@types/node': 20.4.7
       pg-protocol: 1.6.0
       pg-types: 4.0.1
     dev: true
@@ -2289,8 +2297,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier@3.0.0:
-    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
+  /prettier@3.0.1:
+    resolution: {integrity: sha512-fcOWSnnpCrovBsmFZIGIy9UqK2FaI7Hqax+DIO0A9UxeVoY4iweyaFjS5TavZN97Hfehph0nhsZnjlVKzEQSrQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -2403,8 +2411,8 @@ packages:
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
     dev: true
 
-  /rollup@3.27.0:
-    resolution: {integrity: sha512-aOltLCrYZ0FhJDm7fCqwTjIUEVjWjcydKBV/Zeid6Mn8BWgDCUBBWT5beM5ieForYNo/1ZHuGJdka26kvQ3Gzg==}
+  /rollup@3.27.2:
+    resolution: {integrity: sha512-YGwmHf7h2oUHkVBT248x0yt6vZkYQ3/rvE5iQuVBh3WO8GcJ6BNeOkpoX1yMHIiBm18EMLjBPIoUDkhgnyxGOQ==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -2622,8 +2630,8 @@ packages:
       min-indent: 1.0.1
     dev: true
 
-  /strip-literal@1.0.1:
-    resolution: {integrity: sha512-QZTsipNpa2Ppr6v1AmJHESqJ3Uz247MUS0OjrnnZjFAvEoWqxuyFuXn2xLgMtRnijJShAa1HL0gtJyUs7u7n3Q==}
+  /strip-literal@1.3.0:
+    resolution: {integrity: sha512-PugKzOsyXpArk0yWmUwqOZecSO0GH0bPoctLcqNDH9J04pVW3lflYE0ujElBGTloevcxF5MofAOZ7C5l2b+wLg==}
     dependencies:
       acorn: 8.10.0
     dev: true
@@ -2811,7 +2819,7 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-node@0.34.1(@types/node@20.4.5):
+  /vite-node@0.34.1(@types/node@20.4.7):
     resolution: {integrity: sha512-odAZAL9xFMuAg8aWd7nSPT+hU8u2r9gU3LRm9QKjxBEF2rRdWpMuqkrkjvyVQEdNFiBctqr2Gg4uJYizm5Le6w==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -2821,7 +2829,7 @@ packages:
       mlly: 1.4.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.4.8(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.7)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -2833,7 +2841,7 @@ packages:
       - terser
     dev: true
 
-  /vite@4.4.8(@types/node@20.4.5):
+  /vite@4.4.8(@types/node@20.4.7):
     resolution: {integrity: sha512-LONawOUUjxQridNWGQlNizfKH89qPigK36XhMI7COMGztz8KNY0JHim7/xDd71CZwGT4HtSRgI7Hy+RlhG0Gvg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -2861,10 +2869,10 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.4.5
+      '@types/node': 20.4.7
       esbuild: 0.18.17
       postcss: 8.4.27
-      rollup: 3.27.0
+      rollup: 3.27.2
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -2902,7 +2910,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.5
       '@types/chai-subset': 1.3.3
-      '@types/node': 20.4.5
+      '@types/node': 20.4.7
       '@vitest/expect': 0.34.1
       '@vitest/runner': 0.34.1
       '@vitest/snapshot': 0.34.1
@@ -2918,11 +2926,11 @@ packages:
       pathe: 1.1.1
       picocolors: 1.0.0
       std-env: 3.3.3
-      strip-literal: 1.0.1
+      strip-literal: 1.3.0
       tinybench: 2.5.0
       tinypool: 0.7.0
-      vite: 4.4.8(@types/node@20.4.5)
-      vite-node: 0.34.1(@types/node@20.4.5)
+      vite: 4.4.8(@types/node@20.4.7)
+      vite-node: 0.34.1(@types/node@20.4.7)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
