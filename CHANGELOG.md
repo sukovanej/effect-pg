@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.4.0
+
+### Minor Changes
+
+- 882deff: Update /io and /match.
+
 ## 0.3.0
 
 ### Minor Changes
