@@ -2,10 +2,32 @@
   "name": "effect-pg",
   "version": "0.4.0",
   "description": "node-pg wrapper for effect-ts",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "exports": {
+    ".": {
+      "require": "./index.cjs",
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./*": {
+      "import": {
+        "types": "./*.d.ts",
+        "default": "./*.js"
+      },
+      "require": {
+        "types": "./*.d.ts",
+        "default": "./*.cjs"
+      }
+    }
+  },
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "build": "tsup && cp package.json dist/ && cp readme.md dist/",
     "watch": "tsc -w -p tsconfig.json",
     "format": "prettier -w src tests examples",
     "lint": "prettier src tests examples --check",
@@ -21,6 +43,7 @@
     "@types/pg": "^8.10.2",
     "@vitest/coverage-v8": "^0.34.1",
     "prettier": "^3.0.1",
+    "tsup": "^7.2.0",
     "typescript": "^5.1.6",
     "vitest": "^0.34.1"
   },
