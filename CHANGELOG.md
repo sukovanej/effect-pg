@@ -1,5 +1,12 @@
 # effect-pg
 
+## 0.5.0
+
+### Minor Changes
+
+- 058f3ed: @effect/\* as peer dependencies
+- 657b164: Update dist.
+
 ## 0.4.0
 
 ### Minor Changes
