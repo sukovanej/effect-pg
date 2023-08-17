@@ -39,19 +39,19 @@
   "license": "ISC",
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
-    "@effect/data": "^0.17.1",
-    "@effect/io": "^0.38.0",
+    "@effect/data": "^0.17.2",
+    "@effect/io": "^0.38.1",
     "@effect/match": "^0.32.0",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/pg": "^8.10.2",
-    "@vitest/coverage-v8": "^0.34.1",
-    "prettier": "^3.0.1",
+    "@vitest/coverage-v8": "^0.34.2",
+    "prettier": "^3.0.2",
     "tsup": "^7.2.0",
     "typescript": "^5.1.6",
-    "vitest": "^0.34.1"
+    "vitest": "^0.34.2"
   },
   "dependencies": {
-    "pg": "^8.11.2"
+    "pg": "^8.11.3"
   },
   "peerDependencies": {
     "@effect/data": "^0.17.1",
