@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.5.1
+
+### Patch Changes
+
+- c2caeca: Update dependecies.
+
 ## 0.5.0
 
 ### Minor Changes
