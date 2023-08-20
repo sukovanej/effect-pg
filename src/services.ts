@@ -1,11 +1,11 @@
-import { ClientBase, Pool, PoolConfig } from 'pg';
+import * as pg from 'pg';
 
 import * as Context from '@effect/data/Context';
 
-export const ConfigService = Context.Tag<PoolConfig>(
+export const Config = Context.Tag<pg.PoolConfig>(
   'effect-pg/context/ConfigService'
 );
-export const ClientService = Context.Tag<ClientBase>(
+export const Client = Context.Tag<pg.ClientBase>(
   'effect-pg/context/ClientService'
 );
-export const PoolService = Context.Tag<Pool>('effect-pg/context/PoolService');
+export const Pool = Context.Tag<pg.Pool>('effect-pg/context/PoolService');
