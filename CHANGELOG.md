@@ -1,5 +1,12 @@
 # effect-pg
 
+## 0.6.0
+
+### Minor Changes
+
+- 61f1df3: Update /data, /io and /match.
+- f843b8b: Fix ESM.
+
 ## 0.5.1
 
 ### Patch Changes
