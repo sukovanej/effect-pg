@@ -14,14 +14,14 @@ devDependencies:
     specifier: ^2.26.2
     version: 2.26.2
   '@effect/data':
-    specifier: ^0.17.2
-    version: 0.17.2
+    specifier: ^0.17.5
+    version: 0.17.5
   '@effect/io':
-    specifier: ^0.38.1
-    version: 0.38.1(@effect/data@0.17.2)
+    specifier: ^0.38.2
+    version: 0.38.2(@effect/data@0.17.5)
   '@effect/match':
-    specifier: ^0.32.0
-    version: 0.32.0(@effect/data@0.17.2)(@effect/schema@0.33.1)
+    specifier: ^0.33.0
+    version: 0.33.0(@effect/data@0.17.5)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.2.0
     version: 4.2.0(prettier@3.0.2)
@@ -364,37 +364,24 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@effect/data@0.17.2:
-    resolution: {integrity: sha512-WA6tqvdjd9B446qSucsxCNpkbrpBU1MV1oD2klpop2s9Pzy2UPVyJhivV+5/7hW6Wn4JVqCkL+Ys97nkBdmJKA==}
+  /@effect/data@0.17.5:
+    resolution: {integrity: sha512-D6hYM+IReoM6YR8okIS5dygcUDdXR+De3O2b8SHwenE0PRQrGnZ9O6kJFeqkkX6pIZwEWBnb1l9SKOrw7auI4A==}
     dev: true
 
-  /@effect/io@0.38.1(@effect/data@0.17.2):
-    resolution: {integrity: sha512-eVjUVwyTlNCcZQBn9WQDFVCKoLXWfUL5yzhCY76E2FhJ8YUasmZCcIvfjbVXw4RguwgskCWfvUxQFAF29m7yYA==}
+  /@effect/io@0.38.2(@effect/data@0.17.5):
+    resolution: {integrity: sha512-rnAXFo9BDLbY7DgQE1e8uP/sEniyVCsB7gNs+yXPu0XK9s4kaGinH6XgwYRDBuu7Fu1tQ1yd7JoAdEb7yutNRg==}
     peerDependencies:
       '@effect/data': ^0.17.1
     dependencies:
-      '@effect/data': 0.17.2
+      '@effect/data': 0.17.5
     dev: true
 
-  /@effect/match@0.32.0(@effect/data@0.17.2)(@effect/schema@0.33.1):
-    resolution: {integrity: sha512-04QfnIgCcMnnNbGxTv2xa9/7q1c5kgpsBodqTUZ8eX86A/EdE8Czz+JkVarG00/xE+nYhQLXOXCN9Zj+dtqVkQ==}
+  /@effect/match@0.33.0(@effect/data@0.17.5):
+    resolution: {integrity: sha512-xAxhWTEcLgtUZC8+II0DmOhcYP+8oR2GdVZMFitQVzXRKCIqXnevrUX1BZnZWjds8YcMWswrCVQ5hhlsnK/lCQ==}
     peerDependencies:
       '@effect/data': ^0.17.1
-      '@effect/schema': ^0.33.0
     dependencies:
-      '@effect/data': 0.17.2
-      '@effect/schema': 0.33.1(@effect/data@0.17.2)(@effect/io@0.38.1)
-    dev: true
-
-  /@effect/schema@0.33.1(@effect/data@0.17.2)(@effect/io@0.38.1):
-    resolution: {integrity: sha512-h+fQInui4q3we8fegAygL0Cs5B2DD/+oC3JWthOh8eLcbKkbYM9smCD/PsHuyQ+BaeWiSP5JdvREGlP4Sg+Ysw==}
-    peerDependencies:
-      '@effect/data': ^0.17.1
-      '@effect/io': ^0.38.0
-    dependencies:
-      '@effect/data': 0.17.2
-      '@effect/io': 0.38.1(@effect/data@0.17.2)
-      fast-check: 3.12.0
+      '@effect/data': 0.17.5
     dev: true
 
   /@esbuild/android-arm64@0.18.20:
@@ -730,8 +717,8 @@ packages:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: true
 
-  /@types/node@20.5.0:
-    resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
+  /@types/node@20.5.1:
+    resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
     dev: true
 
   /@types/normalize-package-data@2.4.1:
@@ -741,7 +728,7 @@ packages:
   /@types/pg@8.10.2:
     resolution: {integrity: sha512-MKFs9P6nJ+LAeHLU3V0cODEOgyThJ3OAnmOlsZsxux6sfQs3HRXR5bBn7xG5DjckEFhTAxsXi7k7cd0pCMxpJw==}
     dependencies:
-      '@types/node': 20.5.0
+      '@types/node': 20.5.1
       pg-protocol: 1.6.0
       pg-types: 4.0.1
     dev: true
@@ -763,7 +750,7 @@ packages:
       istanbul-reports: 3.1.6
       magic-string: 0.30.2
       picocolors: 1.0.0
-      std-env: 3.3.3
+      std-env: 3.4.0
       test-exclude: 6.0.0
       v8-to-istanbul: 9.1.0
       vitest: 0.34.2
@@ -1367,13 +1354,6 @@ packages:
       chardet: 0.7.0
       iconv-lite: 0.4.24
       tmp: 0.0.33
-    dev: true
-
-  /fast-check@3.12.0:
-    resolution: {integrity: sha512-SqahE9mlL3+lhjJ39joMLwcj6F+24hfZdf/tchlNO8sHcTdrUUdA5P/ZbSFZM9Xpzs36XaneGwE0FWepm/zyOA==}
-    engines: {node: '>=8.0.0'}
-    dependencies:
-      pure-rand: 6.0.2
     dev: true
 
   /fast-glob@3.3.1:
@@ -2511,10 +2491,6 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /pure-rand@6.0.2:
-    resolution: {integrity: sha512-6Yg0ekpKICSjPswYOuC5sku/TSWaRYlA0qsXqJgM/d/4pLPHPuTxK7Nbf7jFKzAeedUhR8C7K9Uv63FBsSo8xQ==}
-    dev: true
-
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
@@ -2788,8 +2764,8 @@ packages:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
     dev: true
 
-  /std-env@3.3.3:
-    resolution: {integrity: sha512-Rz6yejtVyWnVjC1RFvNmYL10kgjC49EOghxWn0RFqlCHGFpQx+Xe7yW3I4ceK1SGrWIGMjD5Kbue8W/udkbMJg==}
+  /std-env@3.4.0:
+    resolution: {integrity: sha512-YqHeQIIQ8r1VtUZOTOyjsAXAsjr369SplZ5rlQaiJTBsvodvPSCME7vuz8pnQltbQ0Cw0lyFo5Q8uyNwYQ58Xw==}
     dev: true
 
   /stream-transform@2.1.3:
@@ -3123,7 +3099,7 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-node@0.34.2(@types/node@20.5.0):
+  /vite-node@0.34.2(@types/node@20.5.1):
     resolution: {integrity: sha512-JtW249Zm3FB+F7pQfH56uWSdlltCo1IOkZW5oHBzeQo0iX4jtC7o1t9aILMGd9kVekXBP2lfJBEQt9rBh07ebA==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -3133,7 +3109,7 @@ packages:
       mlly: 1.4.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.4.9(@types/node@20.5.0)
+      vite: 4.4.9(@types/node@20.5.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3145,7 +3121,7 @@ packages:
       - terser
     dev: true
 
-  /vite@4.4.9(@types/node@20.5.0):
+  /vite@4.4.9(@types/node@20.5.1):
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -3173,7 +3149,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.5.0
+      '@types/node': 20.5.1
       esbuild: 0.18.20
       postcss: 8.4.28
       rollup: 3.28.0
@@ -3214,7 +3190,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.5
       '@types/chai-subset': 1.3.3
-      '@types/node': 20.5.0
+      '@types/node': 20.5.1
       '@vitest/expect': 0.34.2
       '@vitest/runner': 0.34.2
       '@vitest/snapshot': 0.34.2
@@ -3229,12 +3205,12 @@ packages:
       magic-string: 0.30.2
       pathe: 1.1.1
       picocolors: 1.0.0
-      std-env: 3.3.3
+      std-env: 3.4.0
       strip-literal: 1.3.0
       tinybench: 2.5.0
       tinypool: 0.7.0
-      vite: 4.4.9(@types/node@20.5.0)
-      vite-node: 0.34.2(@types/node@20.5.0)
+      vite: 4.4.9(@types/node@20.5.1)
+      vite-node: 0.34.2(@types/node@20.5.1)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
