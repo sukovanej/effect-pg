@@ -1,10 +1,11 @@
+import * as pg from 'pg';
+
 import * as Either from '@effect/data/Either';
 import { pipe } from '@effect/data/Function';
 import * as RA from '@effect/data/ReadonlyArray';
 import * as Config from '@effect/io/Config';
 import * as Effect from '@effect/io/Effect';
-
-import * as Pg from '../src';
+import * as Pg from 'effect-pg';
 
 export const postgresConfig = Config.all({
   host: Config.withDefault(Config.string('POSTGRES_HOST'), 'localhost'),
@@ -14,12 +15,12 @@ export const postgresConfig = Config.all({
   database: Config.withDefault(Config.string('POSTGRES_NAME'), 'postgres'),
 });
 
-const run = (self: Effect.Effect<Pg.ClientBase, unknown, unknown>) =>
+const run = (self: Effect.Effect<pg.ClientBase, unknown, unknown>) =>
   pipe(
     self,
     Pg.transactionRollback,
     Effect.provideLayer(Pg.clientLayer),
-    Effect.provideServiceEffect(Pg.ConfigService, Effect.config(postgresConfig))
+    Effect.provideServiceEffect(Pg.Config, Effect.config(postgresConfig))
   );
 
 test('Simple test 1', async () => {
@@ -118,10 +119,7 @@ test('Pool', async () => {
     Pg.transactionRollback,
     Effect.provideLayer(Pg.poolClientLayer),
     Effect.provideLayer(Pg.poolLayer),
-    Effect.provideServiceEffect(
-      Pg.ConfigService,
-      Effect.config(postgresConfig)
-    ),
+    Effect.provideServiceEffect(Pg.Config, Effect.config(postgresConfig)),
     Effect.runPromise
   );
 });
