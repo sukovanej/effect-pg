@@ -44,11 +44,11 @@
     "@effect/match": "^0.34.0",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/pg": "^8.10.2",
-    "@vitest/coverage-v8": "^0.34.2",
+    "@vitest/coverage-v8": "^0.34.3",
     "prettier": "^3.0.2",
     "tsup": "^7.2.0",
-    "typescript": "^5.1.6",
-    "vitest": "^0.34.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.3"
   },
   "dependencies": {
     "pg": "^8.11.3"
