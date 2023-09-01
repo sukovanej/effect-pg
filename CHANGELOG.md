@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.7.0
+
+### Minor Changes
+
+- a21de48: Update effect dependencies.
+
 ## 0.6.1
 
 ### Patch Changes
