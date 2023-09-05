@@ -40,7 +40,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
     "@effect/data": "^0.18.3",
-    "@effect/io": "^0.39.0",
+    "@effect/io": "^0.40.0",
     "@effect/match": "^0.35.1",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/pg": "^8.10.2",

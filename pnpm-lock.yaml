@@ -17,8 +17,8 @@ devDependencies:
     specifier: ^0.18.3
     version: 0.18.3
   '@effect/io':
-    specifier: ^0.39.0
-    version: 0.39.0(@effect/data@0.18.3)
+    specifier: ^0.40.0
+    version: 0.40.0(@effect/data@0.18.3)
   '@effect/match':
     specifier: ^0.35.1
     version: 0.35.1(@effect/data@0.18.3)
@@ -368,8 +368,8 @@ packages:
     resolution: {integrity: sha512-xNG4CwxE758EK0v81EIPnKv9QeU/x9st1Doab/Fjf7sb9V3n55C85aBiKChpKgGD8pKCPHcjGydLsRHVUvzpwg==}
     dev: true
 
-  /@effect/io@0.39.0(@effect/data@0.18.3):
-    resolution: {integrity: sha512-9rlW1Pvn6ww1eaxPCg5+PeRlzYA7AfUJwiduPSMfXwgvqdR24gBGCoGgaD8aSKeOE1V1xhgOUNqbaf/oGsmbtQ==}
+  /@effect/io@0.40.0(@effect/data@0.18.3):
+    resolution: {integrity: sha512-S9qkhFBgjq7TBg3E3CjWOU5/Q8zkynz7wfs0DSIspDPDPJ2rBko+ZCGl1dLzOspVOMX0g4EK4W6vDvW6ogL2Bg==}
     peerDependencies:
       '@effect/data': ^0.18.0
     dependencies:
