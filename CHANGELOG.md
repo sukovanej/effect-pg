@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.8.0
+
+### Minor Changes
+
+- a627f29: Update effect dependencies.
+
 ## 0.7.0
 
 ### Minor Changes
