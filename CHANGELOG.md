@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.8.1
+
+### Patch Changes
+
+- 923d764: Update /data and /io.
+
 ## 0.8.0
 
 ### Minor Changes
