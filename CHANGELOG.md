@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.10.1
+
+### Patch Changes
+
+- cd4ea01: Include @types/pg.
+
 ## 0.10.0
 
 ### Minor Changes
