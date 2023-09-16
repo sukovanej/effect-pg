@@ -1,3 +1,6 @@
+import * as Data from '@effect/data/Data';
+import * as ParseResult from '@effect/schema/ParseResult';
+
 export type PostgresUnknownError = {
   _tag: 'PostgresUnknownError';
   error: unknown;
@@ -29,14 +32,14 @@ export const postgresTableDoesntExistError = <E>(
   error,
 });
 
-export type PostgresValidationError<E> = {
+export type PostgresValidationError = {
   _tag: 'PostgresValidationError';
-  error: E;
+  error: ParseResult.ParseError;
 };
 
-export const postgresValidationError = <E>(
-  error: E
-): PostgresValidationError<E> => ({ _tag: 'PostgresValidationError', error });
+export const postgresValidationError = (
+  error: ParseResult.ParseError
+): PostgresValidationError => ({ _tag: 'PostgresValidationError', error });
 
 export type PostgresUnexpectedNumberOfRowsError = {
   _tag: 'PostgresUnexpectedNumberOfRowsError';
@@ -65,7 +68,12 @@ export const postgresDuplicateTableError = (
   error,
 });
 
+export class PostgresInvalidParametersError extends Data.TaggedClass(
+  'PostgresInvalidParametersError'
+)<{ error: unknown }> {}
+
 export type PostgresQueryError =
   | PostgresTableDoesntExistError
   | PostgresUnknownError
-  | PostgresDuplicateTableError;
+  | PostgresDuplicateTableError
+  | PostgresInvalidParametersError;

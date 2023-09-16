@@ -1,64 +1,62 @@
 import * as pg from 'pg';
 
+import * as Chunk from '@effect/data/Chunk';
 import * as Either from '@effect/data/Either';
 import { pipe } from '@effect/data/Function';
+import * as ReadonlyArray from '@effect/data/ReadonlyArray';
 import * as RA from '@effect/data/ReadonlyArray';
-import * as Config from '@effect/io/Config';
 import * as Effect from '@effect/io/Effect';
+import * as Schema from '@effect/schema/Schema';
+import * as Stream from '@effect/stream/Stream';
+import { setDotEnvConfigProvider } from 'effect-dotenv';
 import * as Pg from 'effect-pg';
 
-export const postgresConfig = Config.all({
-  host: Config.withDefault(Config.string('POSTGRES_HOST'), 'localhost'),
-  port: Config.integer('POSTGRES_PORT'),
-  user: Config.string('POSTGRES_USER'),
-  password: Config.string('POSTGRES_PASSWORD'),
-  database: Config.withDefault(Config.string('POSTGRES_NAME'), 'postgres'),
-});
+export const testConfig = Pg.config({ namePrefix: 'TEST_POSTGRES' });
 
-const run = (self: Effect.Effect<pg.ClientBase, unknown, unknown>) =>
+const runTest = <E, A>(self: Effect.Effect<pg.ClientBase, E, A>) =>
   pipe(
     self,
     Pg.transactionRollback,
-    Effect.provideLayer(Pg.clientLayer),
-    Effect.provideServiceEffect(Pg.Config, Effect.config(postgresConfig))
+    Effect.provideLayer(Pg.client),
+    Effect.provideLayer(testConfig),
+    Effect.provideSomeLayer(setDotEnvConfigProvider()),
+    Effect.runPromise
   );
+
+const User = Schema.struct({ id: Schema.number, name: Schema.string });
+
+const createUsersTable = Pg.query(
+  'CREATE TABLE users (id SERIAL, name TEXT NOT NULL)'
+);
+const insertUser = Pg.query('INSERT INTO users (name) VALUES ($1::TEXT)', User);
+const selectUser = Pg.queryOne('SELECT * FROM users', User);
+const selectUsers = Pg.query('SELECT * FROM users', User);
 
 test('Simple test 1', async () => {
   await pipe(
-    Pg.queryRaw('CREATE TABLE users (name TEXT NOT NULL)'),
-    Effect.flatMap(() =>
-      Pg.queryRaw("INSERT INTO users (name) VALUES ('milan')")
-    ),
-    Effect.flatMap(() => Pg.queryOne('SELECT * FROM users')),
+    createUsersTable(),
+    Effect.flatMap(() => insertUser('milan')),
+    Effect.flatMap(() => selectUser()),
     Effect.flatMap((row) =>
       Effect.sync(() => {
-        expect(row).toEqual({ name: 'milan' });
+        expect(row.name).toEqual('milan');
       })
     ),
-    Effect.flatMap(() => Pg.queryArray('SELECT * FROM users')),
+    Effect.flatMap(() => selectUsers()),
     Effect.map((rows) => {
-      expect(rows).toEqual([{ name: 'milan' }]);
+      expect(rows.map((user) => user.name)).toEqual(['milan']);
     }),
-    run,
-    Effect.runPromise
+    runTest
   );
 });
 
 test('Simple test 2', async () => {
   const result = await pipe(
-    Pg.queryRaw('CREATE TABLE users (name TEXT NOT NULL)'),
-    Effect.flatMap(() =>
-      Effect.all(
-        RA.replicate(
-          Pg.queryRaw("INSERT INTO users (name) VALUES ('milan')"),
-          3
-        )
-      )
-    ),
-    Effect.flatMap(() => Pg.queryOne('SELECT * FROM users')),
-    run,
+    createUsersTable(),
+    Effect.flatMap(() => Effect.all(RA.replicate(insertUser('milan'), 3))),
+    Effect.flatMap(() => selectUser()),
     Effect.either,
-    Effect.runPromise
+    runTest
   );
 
   expect(result).toEqual(
@@ -72,7 +70,7 @@ test('Simple test 2', async () => {
 
 test('Table doesnt exist error', async () => {
   await pipe(
-    Pg.queryRaw('SELECT * FROM users'),
+    selectUsers(),
     Effect.map(() => {
       assert.fail('Expected failure');
     }),
@@ -80,17 +78,14 @@ test('Table doesnt exist error', async () => {
       expect(error._tag).toEqual('PostgresTableDoesntExistError');
       return Effect.unit;
     }),
-    run,
-    Effect.runPromise
+    runTest
   );
 });
 
 test('Duplicate table error', async () => {
   await pipe(
-    Pg.queryRaw('CREATE TABLE users (name TEXT NOT NULL)'),
-    Effect.flatMap(() =>
-      Pg.queryRaw('CREATE TABLE users (name TEXT NOT NULL)')
-    ),
+    createUsersTable(),
+    Effect.flatMap(() => createUsersTable()),
     Effect.map(() => {
       assert.fail('Expected failure');
     }),
@@ -98,17 +93,14 @@ test('Duplicate table error', async () => {
       expect(error._tag).toEqual('PostgresDuplicateTableError');
       return Effect.unit;
     }),
-    run,
-    Effect.runPromise
+    runTest
   );
 });
 
 test('Pool', async () => {
   await pipe(
-    Pg.queryRaw('CREATE TABLE users (name TEXT NOT NULL)'),
-    Effect.flatMap(() =>
-      Pg.queryRaw('CREATE TABLE users (name TEXT NOT NULL)')
-    ),
+    createUsersTable(),
+    Effect.flatMap(() => createUsersTable()),
     Effect.map(() => {
       assert.fail('Expected failure');
     }),
@@ -117,9 +109,28 @@ test('Pool', async () => {
       return Effect.unit;
     }),
     Pg.transactionRollback,
-    Effect.provideLayer(Pg.poolClientLayer),
-    Effect.provideLayer(Pg.poolLayer),
-    Effect.provideServiceEffect(Pg.Config, Effect.config(postgresConfig)),
+    Effect.provideLayer(Pg.poolClient),
+    Effect.provideLayer(Pg.pool),
+    Effect.provideLayer(testConfig),
+    Effect.provideSomeLayer(setDotEnvConfigProvider()),
     Effect.runPromise
   );
+});
+
+describe('streaming', () => {
+  test('sequence', async () => {
+    const queryNumSequence = Pg.queryStream(
+      'SELECT * FROM generate_series(1, $1) n',
+      Schema.struct({ n: Schema.number })
+    );
+
+    const result = await pipe(
+      queryNumSequence(10),
+      Stream.map(({ n }) => n),
+      Stream.runCollect,
+      runTest
+    );
+
+    expect(Chunk.toReadonlyArray(result)).toEqual(ReadonlyArray.range(1, 10));
+  });
 });

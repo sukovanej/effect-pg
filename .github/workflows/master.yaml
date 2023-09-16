@@ -59,10 +59,9 @@ jobs:
       - run: pnpm build
       - run: pnpm test
         env:
-          POSTGRES_HOST: localhost
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_PORT: 5432
+          TEST_POSTGRES_USER: postgres
+          TEST_POSTGRES_PASSWORD: postgres
+          TEST_POSTGRES_DATABASE: postgres
       - run: pnpm lint
       - name: Create Release Pull Request or Publish
         id: changesets
