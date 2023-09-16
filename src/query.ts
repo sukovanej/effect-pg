@@ -1,10 +1,16 @@
 import * as pg from 'pg';
+import QueryStream from 'pg-query-stream';
 
+import * as Chunk from '@effect/data/Chunk';
 import { pipe } from '@effect/data/Function';
+import * as Option from '@effect/data/Option';
 import * as Effect from '@effect/io/Effect';
 import * as Exit from '@effect/io/Exit';
 import * as Match from '@effect/match';
+import * as Schema from '@effect/schema/Schema';
+import * as Stream from '@effect/stream/Stream';
 import {
+  PostgresInvalidParametersError,
   PostgresQueryError,
   PostgresUnexpectedNumberOfRowsError,
   PostgresValidationError,
@@ -16,131 +22,156 @@ import {
 } from 'effect-pg/errors';
 import { Client } from 'effect-pg/services';
 
-export const queryRaw = (
-  queryText: string,
-  values?: unknown[]
-): Effect.Effect<pg.ClientBase, PostgresQueryError, pg.QueryResult<any>> =>
-  pipe(
-    Effect.flatMap(Client, (client) =>
-      Effect.tryPromise(() => client.query(queryText, values))
-    ),
-    Effect.mapError((error) =>
-      pipe(
-        Match.value(error),
-        Match.when({ code: '42P01' }, (error) =>
-          postgresTableDoesntExistError(error)
-        ),
-        Match.when({ code: '42P07' }, (error) =>
-          postgresDuplicateTableError(error)
-        ),
-        Match.orElse(postgresUnknownError)
-      )
-    )
-  );
+const convertError = pipe(
+  Match.type<unknown>(),
+  Match.when({ code: '42P01' }, (error) =>
+    postgresTableDoesntExistError(error)
+  ),
+  Match.when({ code: '42P07' }, (error) => postgresDuplicateTableError(error)),
+  Match.when(
+    { code: '08P01' },
+    (error) => new PostgresInvalidParametersError({ error })
+  ),
+  Match.orElse(postgresUnknownError)
+);
 
-type Parser<E, A> = (row: unknown) => Effect.Effect<never, E, A>;
-
-export const queryArray: {
-  <A, E>(
-    queryText: string,
-    parse: Parser<E, A>,
-    values?: unknown[]
-  ): Effect.Effect<
+export const query: {
+  <_, A = unknown>(
+    sql: string,
+    schema: Schema.Schema<_, A>
+  ): (
+    ...values: unknown[]
+  ) => Effect.Effect<
     pg.ClientBase,
-    PostgresQueryError | PostgresValidationError<E>,
-    readonly A[]
+    PostgresQueryError | PostgresValidationError,
+    A[]
   >;
+
   (
-    queryText: string,
-    values?: unknown[]
-  ): Effect.Effect<pg.ClientBase, PostgresQueryError, readonly unknown[]>;
-} = <E, A>(
-  queryText: string,
-  ...args: [parse: Parser<E, A>, values?: unknown[]] | [values?: unknown[]]
-): Effect.Effect<pg.ClientBase, any, unknown[] | readonly A[]> => {
-  const values =
-    args.length === 2 ? args[1] : Array.isArray(args[0]) ? args[0] : undefined;
-  const parse =
-    args.length === 2 ? args[0] : !Array.isArray(args[0]) ? args[0] : undefined;
+    sql: string
+  ): (
+    ...values: unknown[]
+  ) => Effect.Effect<pg.ClientBase, PostgresQueryError, unknown[]>;
+} = (sql: string, schema?: Schema.Schema<unknown, unknown>) => {
+  const parse = schema ? Schema.parse(schema) : undefined;
 
-  const result = pipe(
-    queryRaw(queryText, values),
-    Effect.map(({ rows }) => rows as unknown[])
-  );
+  return (...values: unknown[]): Effect.Effect<pg.ClientBase, any, any> =>
+    pipe(
+      Effect.flatMap(Client, (client) =>
+        Effect.tryPromise(() => client.query(sql, values))
+      ),
+      Effect.mapError(convertError),
+      Effect.flatMap((result) => {
+        if (parse === undefined) {
+          return Effect.succeed(result.rows);
+        }
 
-  if (!parse) {
-    return result;
-  }
-
-  return Effect.flatMap(result, (rows) =>
-    Effect.forEach(rows, (row) =>
-      Effect.mapError(parse(row), postgresValidationError)
-    )
-  );
+        return pipe(
+          result.rows,
+          Effect.forEach((row) => parse(row)),
+          Effect.mapError(postgresValidationError)
+        );
+      })
+    );
 };
 
 export const queryOne: {
-  <E, A>(
-    queryText: string,
-    parse: Parser<E, A>,
-    values?: unknown[]
-  ): Effect.Effect<
-    pg.ClientBase,
-    | PostgresQueryError
-    | PostgresUnexpectedNumberOfRowsError
-    | PostgresValidationError<E>,
-    A
-  >;
   (
-    queryText: string,
-    values?: unknown[]
-  ): Effect.Effect<
+    sql: string
+  ): (
+    ...values: unknown[]
+  ) => Effect.Effect<
     pg.ClientBase,
     PostgresQueryError | PostgresUnexpectedNumberOfRowsError,
     unknown
   >;
-} = <E, A>(
-  queryText: string,
-  ...args: [parse: Parser<E, A>, values?: unknown[]] | [values?: unknown[]]
-): Effect.Effect<pg.ClientBase, any, unknown | A> => {
-  const values =
-    args.length === 2 ? args[1] : Array.isArray(args[0]) ? args[0] : undefined;
-  const parse =
-    args.length === 2 ? args[0] : !Array.isArray(args[0]) ? args[0] : undefined;
 
-  const result = pipe(
-    queryRaw(queryText, values),
-    Effect.filterOrFail(
-      ({ rows }) => rows.length === 1,
-      ({ rows }) => postgresUnexpectedNumberOfRowsError(1, rows.length)
-    ),
-    Effect.map(({ rows }) => rows[0] as unknown)
-  );
+  <_, A = unknown>(
+    sql: string,
+    schema?: Schema.Schema<_, A>
+  ): (
+    ...values: unknown[]
+  ) => Effect.Effect<
+    pg.ClientBase,
+    | PostgresQueryError
+    | PostgresValidationError
+    | PostgresUnexpectedNumberOfRowsError,
+    A
+  >;
+} = (sql: string, schema?: Schema.Schema<unknown, unknown>) => {
+  const runQuery = schema ? query(sql, schema) : query(sql);
 
-  if (!parse) {
-    return result;
-  }
-
-  return pipe(
-    result,
-    Effect.flatMap((row) =>
-      pipe(parse(row), Effect.mapError(postgresValidationError))
-    )
-  );
+  return (...values: unknown[]): Effect.Effect<pg.ClientBase, any, any> =>
+    runQuery(...values).pipe(
+      Effect.filterOrFail(
+        (rows) => rows.length === 1,
+        (rows) => postgresUnexpectedNumberOfRowsError(1, rows.length)
+      ),
+      Effect.map((rows) => rows[0] as unknown)
+    );
 };
+
+export const queryStream: {
+  <_, A>(
+    queryText: string,
+    schema: Schema.Schema<_, A>
+  ): (
+    ...values: unknown[]
+  ) => Stream.Stream<
+    pg.ClientBase,
+    PostgresQueryError | PostgresValidationError,
+    A
+  >;
+
+  (
+    queryText: string
+  ): (
+    ...values: unknown[]
+  ) => Stream.Stream<
+    pg.ClientBase,
+    PostgresQueryError | PostgresValidationError,
+    unknown
+  >;
+} = (sql: string, schema?: Schema.Schema<unknown, unknown>) => {
+  const parse = schema ? Schema.parse(schema) : undefined;
+
+  return (...values: unknown[]) =>
+    pipe(
+      Stream.flatMap(Client, (client) =>
+        Stream.async<never, unknown, unknown>((emit) => {
+          const stream = client.query(new QueryStream(sql, values));
+          stream.on('data', (d) => emit(Effect.succeed(Chunk.of(d))));
+          stream.on('close', () => emit(Effect.fail(Option.none())));
+          stream.on('error', (error) => emit(Effect.fail(Option.some(error))));
+        })
+      ),
+      Stream.mapError(convertError),
+      Stream.mapEffect((row) => {
+        if (parse === undefined) {
+          return Effect.succeed(row);
+        }
+
+        return Effect.mapError(parse(row), postgresValidationError);
+      })
+    );
+};
+
+export const begin = query('BEGIN');
+export const commit = query('COMMIT');
+export const rollback = query('ROLLBACK');
 
 export const transaction = <R, E, A>(
   self: Effect.Effect<R, E, A>
 ): Effect.Effect<R | pg.ClientBase, E | PostgresQueryError, A> =>
   Effect.acquireUseRelease(
-    queryRaw('BEGIN'),
+    begin(),
     () => self,
     (_, exit) =>
       pipe(
         exit,
         Exit.match({
-          onSuccess: () => queryRaw('COMMIT'),
-          onFailure: () => queryRaw('ROLLBACK'),
+          onSuccess: () => commit(),
+          onFailure: () => rollback(),
         }),
         Effect.orDie
       )
@@ -150,7 +181,7 @@ export const transactionRollback = <R, E, A>(
   self: Effect.Effect<R, E, A>
 ): Effect.Effect<R | pg.ClientBase, E | PostgresQueryError, A> =>
   Effect.acquireUseRelease(
-    queryRaw('BEGIN'),
+    begin(),
     () => self,
-    () => Effect.orDie(queryRaw('ROLLBACK'))
+    () => Effect.orDie(rollback())
   );

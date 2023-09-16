@@ -1,13 +1,21 @@
 import * as pg from 'pg';
 
+import * as Context from '@effect/data/Context';
 import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
 import * as Layer from '@effect/io/Layer';
 import { postgresConnectionError } from 'effect-pg/errors';
-import { Client, Config, Pool } from 'effect-pg/services';
+import {
+  Client,
+  ClientBase,
+  ClientConfig,
+  Pool,
+  PoolClient,
+  PoolConfig,
+} from 'effect-pg/services';
 
-export const clientLayer = pipe(
-  Effect.map(Config, (config) => new pg.Client(config)),
+export const client = pipe(
+  Effect.map(ClientConfig, (config) => new pg.Client(config)),
   Effect.flatMap((client) =>
     Effect.acquireRelease(
       pipe(
@@ -23,13 +31,19 @@ export const clientLayer = pipe(
         )
     )
   ),
-  Layer.scoped(Client)
+  Layer.scoped(Client),
+  Layer.flatMap((client) =>
+    client.pipe(
+      Context.add(ClientBase, Context.get(client, Client)),
+      Layer.succeedContext
+    )
+  )
 );
 
-export const poolLayer = pipe(
+export const pool = pipe(
   Effect.acquireRelease(
     pipe(
-      Effect.map(Config, (config) => new pg.Pool(config)),
+      Effect.map(PoolConfig, (config) => new pg.Pool(config)),
       Effect.tap(() => Effect.logDebug('Postgres pool initialized'))
     ),
     (pool) =>
@@ -50,7 +64,7 @@ export const poolLayer = pipe(
   Layer.scoped(Pool)
 );
 
-export const poolClientLayer = pipe(
+export const poolClient = pipe(
   Effect.flatMap(Pool, (pool) =>
     Effect.acquireRelease(
       pipe(
@@ -69,5 +83,11 @@ export const poolClientLayer = pipe(
         )
     )
   ),
-  Layer.scoped(Client)
+  Layer.scoped(PoolClient),
+  Layer.flatMap((poolClient) =>
+    poolClient.pipe(
+      Context.add(ClientBase, Context.get(poolClient, PoolClient)),
+      Layer.succeedContext
+    )
+  )
 );
