@@ -133,4 +133,38 @@ describe('streaming', () => {
 
     expect(Chunk.toReadonlyArray(result)).toEqual(ReadonlyArray.range(1, 10));
   });
+
+  test('take', async () => {
+    const queryNumSequence = Pg.queryStream(
+      'SELECT * FROM generate_series(1, $1) n',
+      Schema.struct({ n: Schema.number })
+    );
+
+    const result = await pipe(
+      queryNumSequence(20),
+      Stream.map(({ n }) => n),
+      Stream.take(10),
+      Stream.runCollect,
+      runTest
+    );
+
+    expect(Chunk.toReadonlyArray(result)).toEqual(ReadonlyArray.range(1, 10));
+  });
+
+  test('maxRowsPerRead', async () => {
+    const queryNumSequence = Pg.queryStream(
+      'SELECT * FROM generate_series(1, $1) n',
+      Schema.struct({ n: Schema.number }),
+      { maxRowsPerRead: 20 }
+    );
+
+    const result = await pipe(
+      queryNumSequence(20),
+      Stream.map(({ n }) => n),
+      Stream.runCollect,
+      runTest
+    );
+
+    expect(Chunk.toReadonlyArray(result)).toEqual(ReadonlyArray.range(1, 20));
+  });
 });

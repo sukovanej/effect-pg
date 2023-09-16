@@ -1,8 +1,8 @@
 import * as pg from 'pg';
-import QueryStream from 'pg-query-stream';
+import Cursor from 'pg-cursor';
 
 import * as Chunk from '@effect/data/Chunk';
-import { pipe } from '@effect/data/Function';
+import { flow, pipe } from '@effect/data/Function';
 import * as Option from '@effect/data/Option';
 import * as Effect from '@effect/io/Effect';
 import * as Exit from '@effect/io/Exit';
@@ -18,7 +18,7 @@ import {
   PostgresUnknownError,
   PostgresValidationError,
 } from 'effect-pg/errors';
-import { Client } from 'effect-pg/services';
+import { ClientBase } from 'effect-pg/services';
 
 const convertError = pipe(
   Match.type<unknown>(),
@@ -59,7 +59,7 @@ export const query: {
 
   return (...values: unknown[]): Effect.Effect<pg.ClientBase, any, any> =>
     pipe(
-      Effect.flatMap(Client, (client) =>
+      Effect.flatMap(ClientBase, (client) =>
         Effect.tryPromise(() => client.query(sql, values))
       ),
       Effect.mapError(convertError),
@@ -117,10 +117,19 @@ export const queryOne: {
     );
 };
 
+export interface QueryStreamOptions {
+  maxRowsPerRead: number;
+}
+
+const defaultQueryStreamOptions: QueryStreamOptions = {
+  maxRowsPerRead: 10,
+};
+
 export const queryStream: {
   <_, A>(
     queryText: string,
-    schema: Schema.Schema<_, A>
+    schema: Schema.Schema<_, A>,
+    options?: Partial<QueryStreamOptions>
   ): (
     ...values: unknown[]
   ) => Stream.Stream<
@@ -130,38 +139,66 @@ export const queryStream: {
   >;
 
   (
-    queryText: string
+    queryText: string,
+    options?: Partial<QueryStreamOptions>
   ): (
     ...values: unknown[]
-  ) => Stream.Stream<
-    pg.ClientBase,
-    PostgresQueryError | PostgresValidationError,
-    unknown
-  >;
-} = (sql: string, schema?: Schema.Schema<unknown, unknown>) => {
-  const parse = schema ? Schema.parse(schema) : undefined;
+  ) => Stream.Stream<pg.ClientBase, PostgresQueryError, unknown>;
+} = (
+  sql: string,
+  ...args:
+    | [
+        schema: Schema.Schema<unknown, unknown>,
+        options?: Partial<QueryStreamOptions>,
+      ]
+    | [options?: Partial<QueryStreamOptions>]
+) => {
+  const { parse, options } = Schema.isSchema(args[0])
+    ? {
+        parse: Schema.parse(args[0]),
+        options: { ...defaultQueryStreamOptions, ...args[1] },
+      }
+    : {
+        parse: undefined,
+        options: { ...defaultQueryStreamOptions, ...args[0] },
+      };
 
   return (...values: unknown[]) =>
     pipe(
-      Stream.flatMap(Client, (client) =>
-        Stream.async<never, unknown, unknown>((emit) => {
-          const stream = client.query(new QueryStream(sql, values));
-          stream.on('data', (d) => emit(Effect.succeed(Chunk.of(d))));
-          stream.on('close', () => emit(Effect.fail(Option.none())));
-          stream.on('error', (error) => emit(Effect.fail(Option.some(error))));
-        })
+      Effect.flatMap(ClientBase, (client) =>
+        Effect.acquireRelease(
+          Effect.succeed(client.query(new Cursor(sql, values))),
+          (cursor) => Effect.tryPromise(() => cursor.close()).pipe(Effect.orDie)
+        )
       ),
-      Stream.mapError(convertError),
-      Stream.mapEffect((row) => {
-        if (parse === undefined) {
-          return Effect.succeed(row);
-        }
+      Effect.map((cursor) =>
+        pipe(
+          Effect.tryPromise({
+            try: () => cursor.read(options.maxRowsPerRead),
+            catch: flow(convertError, Option.some),
+          }),
+          Effect.flatMap((rows) => {
+            if (parse === undefined) {
+              return Effect.succeed(rows);
+            }
 
-        return Effect.mapError(
-          parse(row),
-          (error) => new PostgresValidationError({ error })
-        );
-      })
+            return pipe(
+              rows,
+              Effect.forEach((row) => parse(row)),
+              Effect.mapError((error) =>
+                Option.some(
+                  new PostgresValidationError({
+                    error,
+                  }) as unknown as PostgresUnknownError
+                )
+              )
+            );
+          }),
+          Effect.map(Chunk.fromIterable),
+          Effect.filterOrFail(Chunk.isNonEmpty, () => Option.none())
+        )
+      ),
+      Stream.fromPull
     );
 };
 
