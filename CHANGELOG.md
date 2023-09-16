@@ -1,5 +1,15 @@
 # effect-pg
 
+## 0.9.0
+
+### Minor Changes
+
+- ae60b4e: Update API, add `queryStream`.
+
+### Patch Changes
+
+- 2b00c84: Update /io.
+
 ## 0.8.1
 
 ### Patch Changes
