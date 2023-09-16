@@ -1,5 +1,12 @@
 # effect-pg
 
+## 0.10.0
+
+### Minor Changes
+
+- dcc00e2: Update API.
+- 0f60e2f: Update API.
+
 ## 0.9.0
 
 ### Minor Changes
