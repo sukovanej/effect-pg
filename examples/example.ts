@@ -1,6 +1,6 @@
 import * as Schema from '@effect/schema/Schema';
 import { Effect, pipe } from 'effect';
-import * as Pg from 'effect-pg';
+import { Pg } from 'effect-pg';
 
 const User = Schema.struct({ name: Schema.string });
 
@@ -16,6 +16,6 @@ pipe(
   Effect.flatMap(() => selectUser()),
   Effect.flatMap((result) => Effect.log(`User: ${JSON.stringify(result)}`)),
   Effect.provideLayer(Pg.client),
-  Effect.provideLayer(Pg.config()),
+  Effect.provideLayer(Pg.setConfig()),
   Effect.runPromise
 );

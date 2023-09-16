@@ -10,29 +10,31 @@ import * as Match from '@effect/match';
 import * as Schema from '@effect/schema/Schema';
 import * as Stream from '@effect/stream/Stream';
 import {
+  PostgresDuplicateTableError,
   PostgresInvalidParametersError,
   PostgresQueryError,
+  PostgresTableDoesntExistError,
   PostgresUnexpectedNumberOfRowsError,
+  PostgresUnknownError,
   PostgresValidationError,
-  postgresDuplicateTableError,
-  postgresTableDoesntExistError,
-  postgresUnexpectedNumberOfRowsError,
-  postgresUnknownError,
-  postgresValidationError,
 } from 'effect-pg/errors';
 import { Client } from 'effect-pg/services';
 
 const convertError = pipe(
   Match.type<unknown>(),
-  Match.when({ code: '42P01' }, (error) =>
-    postgresTableDoesntExistError(error)
+  Match.when(
+    { code: '42P01' },
+    (error) => new PostgresTableDoesntExistError({ error })
   ),
-  Match.when({ code: '42P07' }, (error) => postgresDuplicateTableError(error)),
+  Match.when(
+    { code: '42P07' },
+    (error) => new PostgresDuplicateTableError({ error })
+  ),
   Match.when(
     { code: '08P01' },
     (error) => new PostgresInvalidParametersError({ error })
   ),
-  Match.orElse(postgresUnknownError)
+  Match.orElse((error) => new PostgresUnknownError({ error }))
 );
 
 export const query: {
@@ -69,7 +71,7 @@ export const query: {
         return pipe(
           result.rows,
           Effect.forEach((row) => parse(row)),
-          Effect.mapError(postgresValidationError)
+          Effect.mapError((error) => new PostgresValidationError({ error }))
         );
       })
     );
@@ -105,7 +107,11 @@ export const queryOne: {
     runQuery(...values).pipe(
       Effect.filterOrFail(
         (rows) => rows.length === 1,
-        (rows) => postgresUnexpectedNumberOfRowsError(1, rows.length)
+        (rows) =>
+          new PostgresUnexpectedNumberOfRowsError({
+            expectedRows: 1,
+            receivedRows: rows.length,
+          })
       ),
       Effect.map((rows) => rows[0] as unknown)
     );
@@ -151,7 +157,10 @@ export const queryStream: {
           return Effect.succeed(row);
         }
 
-        return Effect.mapError(parse(row), postgresValidationError);
+        return Effect.mapError(
+          parse(row),
+          (error) => new PostgresValidationError({ error })
+        );
       })
     );
 };

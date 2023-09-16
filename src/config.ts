@@ -6,7 +6,7 @@ import * as Layer from '@effect/io/Layer';
 
 import { ClientConfig, PoolConfig } from './services';
 
-interface ConfigOptions {
+export interface ConfigOptions {
   namePrefix: string;
   defaultHost?: string;
   defaultPort?: number;
@@ -31,7 +31,7 @@ const withDefault =
     return pipe(c, Config.withDefault(defaultValue));
   };
 
-export const _config = (options?: Partial<ConfigOptions>) => {
+export const makeConfig = (options?: Partial<ConfigOptions>) => {
   const { namePrefix, ...defaults } = { ...defaultOptions, ...options };
 
   return Config.all({
@@ -53,13 +53,11 @@ export const _config = (options?: Partial<ConfigOptions>) => {
   });
 };
 
-export const config = (options?: Partial<ConfigOptions>) =>
+export const setConfig = (options?: Partial<ConfigOptions>) =>
   pipe(
-    Effect.config(_config(options)),
+    Effect.config(makeConfig(options)),
     Effect.map((config) =>
       pipe(Context.make(PoolConfig, config), Context.add(ClientConfig, config))
     ),
     Layer.effectContext
   );
-
-export { _config as Config };

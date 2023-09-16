@@ -9,16 +9,16 @@ import * as Effect from '@effect/io/Effect';
 import * as Schema from '@effect/schema/Schema';
 import * as Stream from '@effect/stream/Stream';
 import { setDotEnvConfigProvider } from 'effect-dotenv';
-import * as Pg from 'effect-pg';
+import { Pg } from 'effect-pg';
 
-export const testConfig = Pg.config({ namePrefix: 'TEST_POSTGRES' });
+export const setTestConfig = Pg.setConfig({ namePrefix: 'TEST_POSTGRES' });
 
 const runTest = <E, A>(self: Effect.Effect<pg.ClientBase, E, A>) =>
   pipe(
     self,
     Pg.transactionRollback,
     Effect.provideLayer(Pg.client),
-    Effect.provideLayer(testConfig),
+    Effect.provideLayer(setTestConfig),
     Effect.provideSomeLayer(setDotEnvConfigProvider()),
     Effect.runPromise
   );
@@ -62,8 +62,8 @@ test('Simple test 2', async () => {
   expect(result).toEqual(
     Either.left({
       _tag: 'PostgresUnexpectedNumberOfRowsError',
-      expected: 1,
-      actual: 3,
+      expectedRows: 1,
+      receivedRows: 3,
     })
   );
 });
@@ -111,7 +111,7 @@ test('Pool', async () => {
     Pg.transactionRollback,
     Effect.provideLayer(Pg.poolClient),
     Effect.provideLayer(Pg.pool),
-    Effect.provideLayer(testConfig),
+    Effect.provideLayer(setTestConfig),
     Effect.provideSomeLayer(setDotEnvConfigProvider()),
     Effect.runPromise
   );

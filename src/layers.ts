@@ -4,7 +4,7 @@ import * as Context from '@effect/data/Context';
 import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
 import * as Layer from '@effect/io/Layer';
-import { postgresConnectionError } from 'effect-pg/errors';
+import { PostgresConnectionError } from 'effect-pg/errors';
 import {
   Client,
   ClientBase,
@@ -20,7 +20,7 @@ export const client = pipe(
     Effect.acquireRelease(
       pipe(
         Effect.tryPromise(() => client.connect()),
-        Effect.mapError(postgresConnectionError),
+        Effect.mapError((error) => new PostgresConnectionError({ error })),
         Effect.as(client),
         Effect.tap(() => Effect.logDebug('Postgres connection acquired'))
       ),
@@ -69,7 +69,7 @@ export const poolClient = pipe(
     Effect.acquireRelease(
       pipe(
         Effect.tryPromise(() => pool.connect()),
-        Effect.mapError(postgresConnectionError),
+        Effect.mapError((error) => new PostgresConnectionError({ error })),
         Effect.tap(() =>
           Effect.logDebug('Postgres connection acquired from pool')
         )

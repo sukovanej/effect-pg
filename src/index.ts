@@ -1,5 +1,13 @@
-export * from 'effect-pg/query';
-export * from 'effect-pg/errors';
-export * from 'effect-pg/layers';
-export * from 'effect-pg/services';
-export * from 'effect-pg/config';
+import * as Config from 'effect-pg/config';
+import * as Errors from 'effect-pg/errors';
+import * as Layers from 'effect-pg/layers';
+import * as Query from 'effect-pg/query';
+import * as Services from 'effect-pg/services';
+
+export const Pg = {
+  ...Config,
+  ...Errors,
+  ...Layers,
+  ...Query,
+  ...Services,
+};
