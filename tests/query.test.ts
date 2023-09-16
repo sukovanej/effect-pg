@@ -8,8 +8,8 @@ import * as RA from '@effect/data/ReadonlyArray';
 import * as Effect from '@effect/io/Effect';
 import * as Schema from '@effect/schema/Schema';
 import * as Stream from '@effect/stream/Stream';
-import { setDotEnvConfigProvider } from 'effect-dotenv';
-import { Pg } from 'effect-pg';
+import DotEnv from 'effect-dotenv';
+import Pg from 'effect-pg';
 
 export const setTestConfig = Pg.setConfig({ namePrefix: 'TEST_POSTGRES' });
 
@@ -19,7 +19,7 @@ const runTest = <E, A>(self: Effect.Effect<pg.ClientBase, E, A>) =>
     Pg.transactionRollback,
     Effect.provideLayer(Pg.client),
     Effect.provideLayer(setTestConfig),
-    Effect.provideSomeLayer(setDotEnvConfigProvider()),
+    Effect.provideSomeLayer(DotEnv.setConfigProvider()),
     Effect.runPromise
   );
 
@@ -112,7 +112,7 @@ test('Pool', async () => {
     Effect.provideLayer(Pg.poolClient),
     Effect.provideLayer(Pg.pool),
     Effect.provideLayer(setTestConfig),
-    Effect.provideSomeLayer(setDotEnvConfigProvider()),
+    Effect.provideSomeLayer(DotEnv.setConfigProvider()),
     Effect.runPromise
   );
 });

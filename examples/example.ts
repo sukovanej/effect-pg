@@ -1,6 +1,6 @@
 import * as Schema from '@effect/schema/Schema';
 import { Effect, pipe } from 'effect';
-import { Pg } from 'effect-pg';
+import Pg from 'effect-pg';
 
 const User = Schema.struct({ name: Schema.string });
 
