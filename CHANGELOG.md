@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.11.0
+
+### Minor Changes
+
+- f32f5dd: Fix queryStream.
+
 ## 0.10.1
 
 ### Patch Changes
