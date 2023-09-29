@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.12.0
+
+### Minor Changes
+
+- 27f19bf: Update effect + `Pg` export.
+
 ## 0.11.0
 
 ### Minor Changes
