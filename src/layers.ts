@@ -1,9 +1,6 @@
 import * as pg from 'pg';
 
-import * as Context from '@effect/data/Context';
-import { pipe } from '@effect/data/Function';
-import * as Effect from '@effect/io/Effect';
-import * as Layer from '@effect/io/Layer';
+import { Context, Effect, Layer, pipe } from 'effect';
 import { PostgresConnectionError } from 'effect-pg/errors';
 import {
   Client,

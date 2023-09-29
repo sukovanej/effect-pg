@@ -44,8 +44,8 @@ pipe(
   Effect.flatMap(() => insertUser('patrik')),
   Effect.flatMap(() => selectUser()),
   Effect.flatMap((result) => Effect.log(`User: ${JSON.stringify(result)}`)),
-  Effect.provideLayer(Pg.client),
-  Effect.provideLayer(Pg.setConfig()),
+  Effect.provide(Pg.client),
+  Effect.provide(Pg.setConfig()),
   Effect.runPromise
 );
 ```

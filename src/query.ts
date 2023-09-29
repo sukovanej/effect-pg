@@ -1,14 +1,9 @@
 import * as pg from 'pg';
 import Cursor from 'pg-cursor';
 
-import * as Chunk from '@effect/data/Chunk';
-import { flow, pipe } from '@effect/data/Function';
-import * as Option from '@effect/data/Option';
-import * as Effect from '@effect/io/Effect';
-import * as Exit from '@effect/io/Exit';
 import * as Match from '@effect/match';
-import * as Schema from '@effect/schema/Schema';
-import * as Stream from '@effect/stream/Stream';
+import { Schema } from '@effect/schema';
+import { Chunk, Effect, Exit, Option, Stream, flow, pipe } from 'effect';
 import {
   PostgresDuplicateTableError,
   PostgresInvalidParametersError,

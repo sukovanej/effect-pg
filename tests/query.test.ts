@@ -1,15 +1,9 @@
 import * as pg from 'pg';
 
-import * as Chunk from '@effect/data/Chunk';
-import * as Either from '@effect/data/Either';
-import { pipe } from '@effect/data/Function';
-import * as ReadonlyArray from '@effect/data/ReadonlyArray';
-import * as RA from '@effect/data/ReadonlyArray';
-import * as Effect from '@effect/io/Effect';
-import * as Schema from '@effect/schema/Schema';
-import * as Stream from '@effect/stream/Stream';
-import DotEnv from 'effect-dotenv';
-import Pg from 'effect-pg';
+import { Schema } from '@effect/schema';
+import { Chunk, Effect, Either, ReadonlyArray, Stream, pipe } from 'effect';
+import { DotEnv } from 'effect-dotenv';
+import { Pg } from 'effect-pg';
 
 export const setTestConfig = Pg.setConfig({ namePrefix: 'TEST_POSTGRES' });
 
@@ -17,9 +11,9 @@ const runTest = <E, A>(self: Effect.Effect<pg.ClientBase, E, A>) =>
   pipe(
     self,
     Pg.transactionRollback,
-    Effect.provideLayer(Pg.client),
-    Effect.provideLayer(setTestConfig),
-    Effect.provideSomeLayer(DotEnv.setConfigProvider()),
+    Effect.provide(Pg.client),
+    Effect.provide(setTestConfig),
+    Effect.provide(DotEnv.setConfigProvider()),
     Effect.runPromise
   );
 
@@ -53,7 +47,9 @@ test('Simple test 1', async () => {
 test('Simple test 2', async () => {
   const result = await pipe(
     createUsersTable(),
-    Effect.flatMap(() => Effect.all(RA.replicate(insertUser('milan'), 3))),
+    Effect.flatMap(() =>
+      Effect.all(ReadonlyArray.replicate(insertUser('milan'), 3))
+    ),
     Effect.flatMap(() => selectUser()),
     Effect.either,
     runTest
@@ -109,10 +105,10 @@ test('Pool', async () => {
       return Effect.unit;
     }),
     Pg.transactionRollback,
-    Effect.provideLayer(Pg.poolClient),
-    Effect.provideLayer(Pg.pool),
-    Effect.provideLayer(setTestConfig),
-    Effect.provideSomeLayer(DotEnv.setConfigProvider()),
+    Effect.provide(Pg.poolClient),
+    Effect.provide(Pg.pool),
+    Effect.provide(setTestConfig),
+    Effect.provide(DotEnv.setConfigProvider()),
     Effect.runPromise
   );
 });
