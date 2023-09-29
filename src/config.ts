@@ -1,10 +1,5 @@
-import * as Context from '@effect/data/Context';
-import { pipe } from '@effect/data/Function';
-import * as Config from '@effect/io/Config';
-import * as Effect from '@effect/io/Effect';
-import * as Layer from '@effect/io/Layer';
-
-import { ClientConfig, PoolConfig } from './services';
+import { Config, Context, Effect, Layer, pipe } from 'effect';
+import { ClientConfig, PoolConfig } from 'effect-pg/services';
 
 export interface ConfigOptions {
   namePrefix: string;
