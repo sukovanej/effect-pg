@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.12.1
+
+### Patch Changes
+
+- 0de0d24: Update schema.
+
 ## 0.12.0
 
 ### Minor Changes
