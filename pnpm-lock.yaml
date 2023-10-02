@@ -21,10 +21,10 @@ devDependencies:
     version: 2.26.2
   '@effect/match':
     specifier: ^0.36.1
-    version: 0.36.1(effect@2.0.0-next.40)
+    version: 0.36.1(effect@2.0.0-next.41)
   '@effect/schema':
     specifier: ^0.39.2
-    version: 0.39.2(effect@2.0.0-next.40)
+    version: 0.39.2(effect@2.0.0-next.41)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.2.0
     version: 4.2.0(prettier@3.0.3)
@@ -35,11 +35,11 @@ devDependencies:
     specifier: ^0.34.6
     version: 0.34.6(vitest@0.34.6)
   effect:
-    specifier: 2.0.0-next.40
-    version: 2.0.0-next.40
+    specifier: 2.0.0-next.41
+    version: 2.0.0-next.41
   effect-dotenv:
-    specifier: ^0.9.1
-    version: 0.9.1(effect@2.0.0-next.40)
+    specifier: ^0.9.2
+    version: 0.9.2(effect@2.0.0-next.41)
   prettier:
     specifier: ^3.0.3
     version: 3.0.3
@@ -376,20 +376,20 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@effect/match@0.36.1(effect@2.0.0-next.40):
+  /@effect/match@0.36.1(effect@2.0.0-next.41):
     resolution: {integrity: sha512-2FYIy2x+m+s2n0fKPHzqe9y72sriBDX373IK46sIAVEtNpXoG6qKr5LtgqxXdikaFwMdnLUsZNyDcRERRq5hnQ==}
     peerDependencies:
       effect: 2.0.0-next.38
     dependencies:
-      effect: 2.0.0-next.40
+      effect: 2.0.0-next.41
     dev: true
 
-  /@effect/schema@0.39.2(effect@2.0.0-next.40):
+  /@effect/schema@0.39.2(effect@2.0.0-next.41):
     resolution: {integrity: sha512-UolykyRtrg+JHflZBfHK2p+w8IgP8u6kSkTq9VIggure12/2CFvlib9vphw4fJCN8cRd3gZo4LevU4FfS+ZLxw==}
     peerDependencies:
       effect: ^2.0.0-next.39
     dependencies:
-      effect: 2.0.0-next.40
+      effect: 2.0.0-next.41
       fast-check: 3.13.1
     dev: true
 
@@ -799,7 +799,7 @@ packages:
   /@vitest/spy@0.34.6:
     resolution: {integrity: sha512-xaCvneSaeBw/cz8ySmF7ZwGvL0lBjfvqc1LpQ/vcdHEvpLn3Ff1vAvjw+CoGn0802l++5L/pxb7whwcWAw+DUQ==}
     dependencies:
-      tinyspy: 2.1.1
+      tinyspy: 2.2.0
     dev: true
 
   /@vitest/utils@0.34.6:
@@ -1231,17 +1231,17 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /effect-dotenv@0.9.1(effect@2.0.0-next.40):
-    resolution: {integrity: sha512-WONTK9uldT+tMdEfyNZ+ouu/LEXq+B5FHF/U72OnmY4SfEAz4WekiIor2sNGWlSoqhiFwvx1vGXomL4i/P+R/w==}
+  /effect-dotenv@0.9.2(effect@2.0.0-next.41):
+    resolution: {integrity: sha512-DWm5TCpUXmwJqzzTZLsNKe+eJeSvwnI5OAERj/9D1fpLKkhZ/bxuM+4F1/qQgnub/Z8OFtnjL6zG83QSzs9I8A==}
     peerDependencies:
-      effect: 2.0.0-next.40
+      effect: 2.0.0-next.41
     dependencies:
       dotenv: 16.3.1
-      effect: 2.0.0-next.40
+      effect: 2.0.0-next.41
     dev: true
 
-  /effect@2.0.0-next.40:
-    resolution: {integrity: sha512-UIUCOHZHFbubTXEYNGHeC4JeW44DjrOauik1ZCuaMpwZoQiDtyyY781nrxKqxPvmLiT458xbeWol/7PWuREzlw==}
+  /effect@2.0.0-next.41:
+    resolution: {integrity: sha512-1bExxFIv9/i9dr7XATkP6goh6HlAA1Ar0RwHRkbFYSBZ/8olx0dVPZ6Lewlo/9B4Zt2+hIu/OtbjplVaItGQwQ==}
     dev: true
 
   /emoji-regex@8.0.0:
@@ -2993,8 +2993,8 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: true
 
-  /tinyspy@2.1.1:
-    resolution: {integrity: sha512-XPJL2uSzcOyBMky6OFrusqWlzfFrXtE0hPuMgW8A2HmaqrPo4ZQHRN/V0QXN3FSjKxpsbRrFc5LI7KOwBsT1/w==}
+  /tinyspy@2.2.0:
+    resolution: {integrity: sha512-d2eda04AN/cPOR89F7Xv5bK/jrQEhmcLFe6HFldoeO9AJtps+fqEnh486vnT/8y4bw38pSyxDcTCAq+Ks2aJTg==}
     engines: {node: '>=14.0.0'}
     dev: true
 
