@@ -44,8 +44,8 @@
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/pg-cursor": "^2.7.0",
     "@vitest/coverage-v8": "^0.34.6",
-    "effect": "2.0.0-next.39",
-    "effect-dotenv": "^0.9.0",
+    "effect": "2.0.0-next.40",
+    "effect-dotenv": "^0.9.1",
     "prettier": "^3.0.3",
     "tsup": "^7.2.0",
     "tsx": "^3.13.0",
@@ -60,6 +60,6 @@
   "peerDependencies": {
     "@effect/match": "^0.36.1",
     "@effect/schema": "^0.39.2",
-    "effect": "2.0.0-next.39"
+    "effect": "2.0.0-next.40"
   }
 }

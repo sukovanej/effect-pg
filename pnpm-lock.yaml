@@ -21,10 +21,10 @@ devDependencies:
     version: 2.26.2
   '@effect/match':
     specifier: ^0.36.1
-    version: 0.36.1(effect@2.0.0-next.39)
+    version: 0.36.1(effect@2.0.0-next.40)
   '@effect/schema':
     specifier: ^0.39.2
-    version: 0.39.2(effect@2.0.0-next.39)
+    version: 0.39.2(effect@2.0.0-next.40)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.2.0
     version: 4.2.0(prettier@3.0.3)
@@ -35,11 +35,11 @@ devDependencies:
     specifier: ^0.34.6
     version: 0.34.6(vitest@0.34.6)
   effect:
-    specifier: 2.0.0-next.39
-    version: 2.0.0-next.39
+    specifier: 2.0.0-next.40
+    version: 2.0.0-next.40
   effect-dotenv:
-    specifier: ^0.9.0
-    version: 0.9.0(effect@2.0.0-next.39)
+    specifier: ^0.9.1
+    version: 0.9.1(effect@2.0.0-next.40)
   prettier:
     specifier: ^3.0.3
     version: 3.0.3
@@ -263,7 +263,7 @@ packages:
       semver: 7.5.4
       spawndamnit: 2.0.0
       term-size: 2.2.1
-      tty-table: 4.2.1
+      tty-table: 4.2.2
     dev: true
 
   /@changesets/config@2.3.1:
@@ -376,20 +376,20 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@effect/match@0.36.1(effect@2.0.0-next.39):
+  /@effect/match@0.36.1(effect@2.0.0-next.40):
     resolution: {integrity: sha512-2FYIy2x+m+s2n0fKPHzqe9y72sriBDX373IK46sIAVEtNpXoG6qKr5LtgqxXdikaFwMdnLUsZNyDcRERRq5hnQ==}
     peerDependencies:
       effect: 2.0.0-next.38
     dependencies:
-      effect: 2.0.0-next.39
+      effect: 2.0.0-next.40
     dev: true
 
-  /@effect/schema@0.39.2(effect@2.0.0-next.39):
+  /@effect/schema@0.39.2(effect@2.0.0-next.40):
     resolution: {integrity: sha512-UolykyRtrg+JHflZBfHK2p+w8IgP8u6kSkTq9VIggure12/2CFvlib9vphw4fJCN8cRd3gZo4LevU4FfS+ZLxw==}
     peerDependencies:
       effect: ^2.0.0-next.39
     dependencies:
-      effect: 2.0.0-next.39
+      effect: 2.0.0-next.40
       fast-check: 3.13.1
     dev: true
 
@@ -1231,17 +1231,17 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /effect-dotenv@0.9.0(effect@2.0.0-next.39):
-    resolution: {integrity: sha512-ftmEKe/5J9TOqm56dJQkWyaX5oqx8vGVfRx9t3EfCB+AXQAw12+GMlycRRiUyvp/jodT5TsLsVzzLoh3SfbExw==}
+  /effect-dotenv@0.9.1(effect@2.0.0-next.40):
+    resolution: {integrity: sha512-WONTK9uldT+tMdEfyNZ+ouu/LEXq+B5FHF/U72OnmY4SfEAz4WekiIor2sNGWlSoqhiFwvx1vGXomL4i/P+R/w==}
     peerDependencies:
-      effect: 2.0.0-next.39
+      effect: 2.0.0-next.40
     dependencies:
       dotenv: 16.3.1
-      effect: 2.0.0-next.39
+      effect: 2.0.0-next.40
     dev: true
 
-  /effect@2.0.0-next.39:
-    resolution: {integrity: sha512-4i6OI4pI55MeDALupg8wOX3Y6nvdwqJcJRGjwYNK7xqAGK3QXy6jbxAi4jf1FBVkIChtJLn2pQ42CbcrjNjewA==}
+  /effect@2.0.0-next.40:
+    resolution: {integrity: sha512-UIUCOHZHFbubTXEYNGHeC4JeW44DjrOauik1ZCuaMpwZoQiDtyyY781nrxKqxPvmLiT458xbeWol/7PWuREzlw==}
     dev: true
 
   /emoji-regex@8.0.0:
@@ -3084,8 +3084,8 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /tty-table@4.2.1:
-    resolution: {integrity: sha512-xz0uKo+KakCQ+Dxj1D/tKn2FSyreSYWzdkL/BYhgN6oMW808g8QRMuh1atAV9fjTPbWBjfbkKQpI/5rEcnAc7g==}
+  /tty-table@4.2.2:
+    resolution: {integrity: sha512-2gvCArMZLxgvpZ2NvQKdnYWIFLe7I/z5JClMuhrDXunmKgSZcQKcZRjN9XjAFiToMz2pUo1dEIXyrm0AwgV5Tw==}
     engines: {node: '>=8.0.0'}
     hasBin: true
     dependencies:
