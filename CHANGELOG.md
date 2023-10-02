@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.12.2
+
+### Patch Changes
+
+- f5e671d: Update effect.
+
 ## 0.12.1
 
 ### Patch Changes
