@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.12.4
+
+### Patch Changes
+
+- 65a4020: Update effect.
+
 ## 0.12.3
 
 ### Patch Changes
