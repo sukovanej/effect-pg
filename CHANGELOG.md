@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.12.6
+
+### Patch Changes
+
+- 3d8043d: Update @effect/schema.
+
 ## 0.12.5
 
 ### Patch Changes
