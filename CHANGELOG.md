@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.12.5
+
+### Patch Changes
+
+- 96de43d: Update effect, @effect/schema and @effect/match peer dependencies.
+
 ## 0.12.4
 
 ### Patch Changes
