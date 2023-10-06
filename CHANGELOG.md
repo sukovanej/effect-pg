@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.12.7
+
+### Patch Changes
+
+- df6b3be: Update effect dependencies.
+
 ## 0.12.6
 
 ### Patch Changes
