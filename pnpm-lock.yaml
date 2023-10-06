@@ -20,11 +20,11 @@ devDependencies:
     specifier: ^2.26.2
     version: 2.26.2
   '@effect/match':
-    specifier: ^0.38.0
-    version: 0.38.0(effect@2.0.0-next.45)
+    specifier: ^0.39.0
+    version: 0.39.0(effect@2.0.0-next.46)
   '@effect/schema':
-    specifier: ^0.40.2
-    version: 0.40.2(effect@2.0.0-next.45)(fast-check@3.13.1)
+    specifier: ^0.41.0
+    version: 0.41.0(effect@2.0.0-next.46)(fast-check@3.13.1)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.2.0
     version: 4.2.0(prettier@3.0.3)
@@ -35,11 +35,11 @@ devDependencies:
     specifier: ^0.34.6
     version: 0.34.6(vitest@0.34.6)
   effect:
-    specifier: 2.0.0-next.45
-    version: 2.0.0-next.45
+    specifier: 2.0.0-next.46
+    version: 2.0.0-next.46
   effect-dotenv:
-    specifier: ^0.9.4
-    version: 0.9.4(effect@2.0.0-next.45)
+    specifier: ^0.9.5
+    version: 0.9.5(effect@2.0.0-next.46)
   prettier:
     specifier: ^3.0.3
     version: 3.0.3
@@ -376,21 +376,21 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@effect/match@0.38.0(effect@2.0.0-next.45):
-    resolution: {integrity: sha512-VRTD0ka2++qzvXYrq3QhRaq2OGUfhHugTzzQ3mOCxzHGmgCaW8NE/D6nTzVgBVJWLy4OkP2XBh+2DNA6nCbbjw==}
+  /@effect/match@0.39.0(effect@2.0.0-next.46):
+    resolution: {integrity: sha512-XwW+8wpa/niPZz5qxMtwR5PuRKdvW6APHvQEq4Mw1uLij3ZpB34PROoMQlWn0xmFrO5ztax05DmZQkDRii1cSw==}
     peerDependencies:
-      effect: 2.0.0-next.45
+      effect: 2.0.0-next.46
     dependencies:
-      effect: 2.0.0-next.45
+      effect: 2.0.0-next.46
     dev: true
 
-  /@effect/schema@0.40.2(effect@2.0.0-next.45)(fast-check@3.13.1):
-    resolution: {integrity: sha512-czPiorvxMaz8F46EzxCWx243/aLOBQWkOSK0M8GTpC+c4dNqnljDmvzuVlrgkqvMGx+TRkabuvp6961NGnuikQ==}
+  /@effect/schema@0.41.0(effect@2.0.0-next.46)(fast-check@3.13.1):
+    resolution: {integrity: sha512-zOSsQDl2MUND6glul7v5ybXsnxYX6eFwZOin79R/7BpqIBvBnD2CY3a0DtZScsPToh7zdOWZnHMOXSdvsqMJtA==}
     peerDependencies:
-      effect: ^2.0.0-next.45
+      effect: 2.0.0-next.46
       fast-check: ^3.13.1
     dependencies:
-      effect: 2.0.0-next.45
+      effect: 2.0.0-next.46
       fast-check: 3.13.1
     dev: true
 
@@ -1232,17 +1232,17 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /effect-dotenv@0.9.4(effect@2.0.0-next.45):
-    resolution: {integrity: sha512-09uO4sufgPfMq0nq24U7sb/4iP6PUqtmDog2hx7OKGfq4wlYUC4rk9HtQ46lcmZWPTEi5kNTqRN+OuJ/Gow32A==}
+  /effect-dotenv@0.9.5(effect@2.0.0-next.46):
+    resolution: {integrity: sha512-0cEqL04PNsC8HjhVtabvZ/0CMwGVzw9RvnSFR8nmWvRNt64mLFmxhEkpvBJZehMVUXXjVGhPpy/1yrmlKsSzGQ==}
     peerDependencies:
-      effect: 2.0.0-next.45
+      effect: 2.0.0-next.46
     dependencies:
       dotenv: 16.3.1
-      effect: 2.0.0-next.45
+      effect: 2.0.0-next.46
     dev: true
 
-  /effect@2.0.0-next.45:
-    resolution: {integrity: sha512-cSapc9midRXsOJUx8o9lIzTPJW2NSviQ1jjHlSZM8UJbteLLqcb02ung+4pLjGyouP2AMQlgo02F7b2MvTWxcQ==}
+  /effect@2.0.0-next.46:
+    resolution: {integrity: sha512-il80bMS05oRGkBvJFX2swLflo1HL5jnnyPemr+ix+9A7Wwhm1ngZmWGgTgp1q5mRkv3voCv3DzJff7DGlrTNTg==}
     dev: true
 
   /emoji-regex@8.0.0:
