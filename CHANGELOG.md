@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.12.9
+
+### Patch Changes
+
+- 41d4b7c: Update effect.
+
 ## 0.12.8
 
 ### Patch Changes
