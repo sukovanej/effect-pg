@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.12.10
+
+### Patch Changes
+
+- 950dc31: Remove @effect/match.
+
 ## 0.12.9
 
 ### Patch Changes
