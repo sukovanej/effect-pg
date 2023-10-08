@@ -1,9 +1,17 @@
 import * as pg from 'pg';
 import Cursor from 'pg-cursor';
 
-import * as Match from '@effect/match';
 import { Schema } from '@effect/schema';
-import { Chunk, Effect, Exit, Option, Stream, flow, pipe } from 'effect';
+import {
+  Chunk,
+  Effect,
+  Exit,
+  Option,
+  Predicate,
+  Stream,
+  flow,
+  pipe,
+} from 'effect';
 import {
   PostgresDuplicateTableError,
   PostgresInvalidParametersError,
@@ -15,22 +23,20 @@ import {
 } from 'effect-pg/errors';
 import { ClientBase } from 'effect-pg/services';
 
-const convertError = pipe(
-  Match.type<unknown>(),
-  Match.when(
-    { code: '42P01' },
-    (error) => new PostgresTableDoesntExistError({ error })
-  ),
-  Match.when(
-    { code: '42P07' },
-    (error) => new PostgresDuplicateTableError({ error })
-  ),
-  Match.when(
-    { code: '08P01' },
-    (error) => new PostgresInvalidParametersError({ error })
-  ),
-  Match.orElse((error) => new PostgresUnknownError({ error }))
-);
+const isObjectWithCode = (code: string, object: unknown) =>
+  Predicate.isRecord(object) && 'code' in object && object['code'] === code;
+
+const convertError = (error: unknown) => {
+  if (isObjectWithCode('42P01', error)) {
+    return new PostgresTableDoesntExistError({ error });
+  } else if (isObjectWithCode('42P07', error)) {
+    return new PostgresDuplicateTableError({ error });
+  } else if (isObjectWithCode('08P01', error)) {
+    return new PostgresInvalidParametersError({ error });
+  }
+
+  return new PostgresUnknownError({ error });
+};
 
 export const query: {
   <_, A = unknown>(

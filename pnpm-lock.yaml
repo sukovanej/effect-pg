@@ -19,9 +19,6 @@ devDependencies:
   '@changesets/cli':
     specifier: ^2.26.2
     version: 2.26.2
-  '@effect/match':
-    specifier: ^0.39.0
-    version: 0.39.0(effect@2.0.0-next.47)
   '@effect/schema':
     specifier: ^0.42.0
     version: 0.42.0(effect@2.0.0-next.47)(fast-check@3.13.1)
@@ -374,14 +371,6 @@ packages:
       fs-extra: 7.0.1
       human-id: 1.0.2
       prettier: 2.8.8
-    dev: true
-
-  /@effect/match@0.39.0(effect@2.0.0-next.47):
-    resolution: {integrity: sha512-XwW+8wpa/niPZz5qxMtwR5PuRKdvW6APHvQEq4Mw1uLij3ZpB34PROoMQlWn0xmFrO5ztax05DmZQkDRii1cSw==}
-    peerDependencies:
-      effect: 2.0.0-next.46
-    dependencies:
-      effect: 2.0.0-next.47
     dev: true
 
   /@effect/schema@0.42.0(effect@2.0.0-next.47)(fast-check@3.13.1):
