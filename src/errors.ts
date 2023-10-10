@@ -1,31 +1,31 @@
 import { ParseResult } from '@effect/schema';
 import { Data } from 'effect';
 
-export class PostgresUnknownError extends Data.TaggedClass(
+export class PostgresUnknownError extends Data.TaggedError(
   'PostgresUnknownError'
 )<{ error: unknown }> {}
 
-export class PostgresConnectionError extends Data.TaggedClass(
+export class PostgresConnectionError extends Data.TaggedError(
   'PostgresConnectionError'
 )<{ error: unknown }> {}
 
-export class PostgresTableDoesntExistError extends Data.TaggedClass(
+export class PostgresTableDoesntExistError extends Data.TaggedError(
   'PostgresTableDoesntExistError'
 )<{ error: unknown }> {}
 
-export class PostgresValidationError extends Data.TaggedClass(
+export class PostgresValidationError extends Data.TaggedError(
   'PostgresValidationError'
 )<{ error: ParseResult.ParseError }> {}
 
-export class PostgresUnexpectedNumberOfRowsError extends Data.TaggedClass(
+export class PostgresUnexpectedNumberOfRowsError extends Data.TaggedError(
   'PostgresUnexpectedNumberOfRowsError'
 )<{ expectedRows: number; receivedRows: number }> {}
 
-export class PostgresDuplicateTableError extends Data.TaggedClass(
+export class PostgresDuplicateTableError extends Data.TaggedError(
   'PostgresDuplicateTableError'
 )<{ error: unknown }> {}
 
-export class PostgresInvalidParametersError extends Data.TaggedClass(
+export class PostgresInvalidParametersError extends Data.TaggedError(
   'PostgresInvalidParametersError'
 )<{ error: unknown }> {}
 
