@@ -1,5 +1,12 @@
 # effect-pg
 
+## 0.13.0
+
+### Minor Changes
+
+- 742e78e: Update effect.
+- 2ed02d9: Use Data.TaggedError for errors.
+
 ## 0.12.10
 
 ### Patch Changes
