@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.13.1
+
+### Patch Changes
+
+- 3e14229: Update @effect/schema and @types/pg.
+
 ## 0.13.0
 
 ### Minor Changes
