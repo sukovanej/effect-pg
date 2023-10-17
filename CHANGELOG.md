@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.14.0
+
+### Minor Changes
+
+- 0701454: Update effect.
+
 ## 0.13.1
 
 ### Patch Changes
