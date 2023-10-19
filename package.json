@@ -39,7 +39,7 @@
   "license": "ISC",
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
-    "@effect/schema": "^0.44.0",
+    "@effect/schema": "^0.45.0",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/pg-cursor": "^2.7.0",
     "@vitest/coverage-v8": "^0.34.6",
