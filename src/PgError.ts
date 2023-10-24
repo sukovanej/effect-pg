@@ -1,5 +1,5 @@
-import { ParseResult } from '@effect/schema';
-import { Data } from 'effect';
+import * as ParseResult from '@effect/schema/ParseResult';
+import * as Data from 'effect/Data';
 
 export class PostgresUnknownError extends Data.TaggedError(
   'PostgresUnknownError'
