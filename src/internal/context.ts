@@ -1,6 +1,6 @@
 import * as pg from 'pg';
 
-import { Context } from 'effect';
+import * as Context from 'effect/Context';
 
 export const ClientConfig = Context.Tag<pg.ClientConfig>(
   'effect-pg/ClientConfig'

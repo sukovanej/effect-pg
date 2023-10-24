@@ -1,14 +1,11 @@
-import { Config, Context, Effect, Layer, pipe } from 'effect';
-import { ClientConfig, PoolConfig } from 'effect-pg/services';
+import * as internal_context from 'effect-pg/internal/context';
+import * as Config from 'effect/Config';
+import * as Context from 'effect/Context';
+import * as Effect from 'effect/Effect';
+import { pipe } from 'effect/Function';
+import * as Layer from 'effect/Layer';
 
-export interface ConfigOptions {
-  namePrefix: string;
-  defaultHost?: string;
-  defaultPort?: number;
-  defaultUser?: string;
-  defaultPassword?: string;
-  defaultDatabase?: string;
-}
+import type { ConfigOptions } from '../Pg';
 
 const defaultOptions: ConfigOptions = {
   namePrefix: 'POSTGRES',
@@ -52,7 +49,10 @@ export const setConfig = (options?: Partial<ConfigOptions>) =>
   pipe(
     Effect.config(makeConfig(options)),
     Effect.map((config) =>
-      pipe(Context.make(PoolConfig, config), Context.add(ClientConfig, config))
+      pipe(
+        Context.make(internal_context.PoolConfig, config),
+        Context.add(internal_context.ClientConfig, config)
+      )
     ),
     Layer.effectContext
   );
