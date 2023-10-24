@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.16.0
+
+### Minor Changes
+
+- 7fafea0: Update public API. `Pg` and `PgError` modules are exported.
+
 ## 0.15.0
 
 ### Minor Changes
