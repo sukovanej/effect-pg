@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.17.0
+
+### Minor Changes
+
+- 4038ddc: Update effect.
+
 ## 0.16.0
 
 ### Minor Changes
