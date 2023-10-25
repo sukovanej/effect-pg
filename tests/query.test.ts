@@ -3,7 +3,7 @@ import * as pg from 'pg';
 import { Schema } from '@effect/schema';
 import { Chunk, Effect, Either, ReadonlyArray, Stream, pipe } from 'effect';
 import { DotEnv } from 'effect-dotenv';
-import { Pg } from 'effect-pg';
+import { Pg, PgError } from 'effect-pg';
 
 export const setTestConfig = Pg.setConfig({ namePrefix: 'TEST_POSTGRES' });
 
@@ -56,11 +56,12 @@ test('Simple test 2', async () => {
   );
 
   expect(result).toEqual(
-    Either.left({
-      _tag: 'PostgresUnexpectedNumberOfRowsError',
-      expectedRows: 1,
-      receivedRows: 3,
-    })
+    Either.left(
+      new PgError.PostgresUnexpectedNumberOfRowsError({
+        expectedRows: 1,
+        receivedRows: 3,
+      })
+    )
   );
 });
 
