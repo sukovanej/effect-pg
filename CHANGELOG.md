@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.17.3
+
+### Patch Changes
+
+- 437142c: Update dependencies.
+
 ## 0.17.2
 
 ### Patch Changes
