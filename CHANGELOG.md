@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.17.4
+
+### Patch Changes
+
+- 46eff6a: Update dependencies.
+
 ## 0.17.3
 
 ### Patch Changes
