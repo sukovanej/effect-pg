@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.19.0
+
+### Minor Changes
+
+- dc61162: Update @effect/schema.
+
 ## 0.18.0
 
 ### Minor Changes
