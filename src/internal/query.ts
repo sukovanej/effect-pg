@@ -5,6 +5,7 @@ import * as Schema from '@effect/schema/Schema';
 import type * as Pg from 'effect-pg/Pg';
 import * as PgError from 'effect-pg/PgError';
 import * as internal_context from 'effect-pg/internal/context';
+import * as Cause from 'effect/Cause';
 import * as Chunk from 'effect/Chunk';
 import * as Effect from 'effect/Effect';
 import * as Exit from 'effect/Exit';
@@ -16,7 +17,9 @@ import * as Stream from 'effect/Stream';
 const isObjectWithCode = (code: string, object: unknown) =>
   Predicate.isRecord(object) && 'code' in object && object['code'] === code;
 
-const convertError = (error: unknown) => {
+const convertError = (exception: Cause.UnknownException) => {
+  const error = exception.error;
+
   if (isObjectWithCode('42P01', error)) {
     return new PgError.PostgresTableDoesntExistError({ error });
   } else if (isObjectWithCode('42P07', error)) {
@@ -162,10 +165,8 @@ export const queryStream: {
       ),
       Effect.map((cursor) =>
         pipe(
-          Effect.tryPromise({
-            try: () => cursor.read(options.maxRowsPerRead),
-            catch: flow(convertError, Option.some),
-          }),
+          Effect.tryPromise(() => cursor.read(options.maxRowsPerRead)),
+          Effect.mapError(flow(convertError, Option.some)),
           Effect.flatMap((rows) => {
             if (parse === undefined) {
               return Effect.succeed(rows);
