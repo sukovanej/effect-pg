@@ -20,8 +20,8 @@ devDependencies:
     specifier: ^2.27.1
     version: 2.27.1
   '@effect/schema':
-    specifier: ^0.51.0
-    version: 0.51.0(effect@2.0.0-next.57)(fast-check@3.14.0)
+    specifier: ^0.51.1
+    version: 0.51.1(effect@2.0.0-next.58)(fast-check@3.14.0)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.3.0
     version: 4.3.0(prettier@3.1.0)
@@ -32,11 +32,11 @@ devDependencies:
     specifier: ^0.34.6
     version: 0.34.6(vitest@0.34.6)
   effect:
-    specifier: 2.0.0-next.57
-    version: 2.0.0-next.57
+    specifier: 2.0.0-next.58
+    version: 2.0.0-next.58
   effect-dotenv:
-    specifier: ^0.14.0
-    version: 0.14.0(effect@2.0.0-next.57)
+    specifier: ^0.14.1
+    version: 0.14.1(effect@2.0.0-next.58)
   prettier:
     specifier: ^3.1.0
     version: 3.1.0
@@ -382,13 +382,13 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@effect/schema@0.51.0(effect@2.0.0-next.57)(fast-check@3.14.0):
-    resolution: {integrity: sha512-KacmzkeloC4iQjFL3SzpzpdPyizuPWEU/mhhkpb6QL9RVAlTQMnebek9l9GixTEkxCnGZJXReYMhjXx4uONikg==}
+  /@effect/schema@0.51.1(effect@2.0.0-next.58)(fast-check@3.14.0):
+    resolution: {integrity: sha512-ZuULzdmAUTtdC/OFaVsEtc7NUCCElYYBE6LJSc9sYG8sDQisA5AQnWFsRk6MZPxzD2EdpTlKgQE0gysn14sttA==}
     peerDependencies:
-      effect: 2.0.0-next.57
+      effect: 2.0.0-next.58
       fast-check: ^3.13.2
     dependencies:
-      effect: 2.0.0-next.57
+      effect: 2.0.0-next.58
       fast-check: 3.14.0
     dev: true
 
@@ -1517,17 +1517,17 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /effect-dotenv@0.14.0(effect@2.0.0-next.57):
-    resolution: {integrity: sha512-DZYxomtyLkJj2Qton/hTEzwCG+JahpbLAry9UEXDzAXdkDhKT8NXOfsH1lglEJs9JvYIESfVtTIVeLj/g+XtDA==}
+  /effect-dotenv@0.14.1(effect@2.0.0-next.58):
+    resolution: {integrity: sha512-7sxn3RkGNrggfP+EH/NblwQ2t3vT1yxLyYPpu69Tfi10ts4IcReUTN5RE+5IkekUQxEPG/GIrg4Y12OYPHX9Pg==}
     peerDependencies:
-      effect: 2.0.0-next.57
+      effect: 2.0.0-next.58
     dependencies:
       dotenv: 16.3.1
-      effect: 2.0.0-next.57
+      effect: 2.0.0-next.58
     dev: true
 
-  /effect@2.0.0-next.57:
-    resolution: {integrity: sha512-riZE0QZt/v7pko4TJj/px3uF2P72N2VufBkjadVxW0JNgBg769+L6TZ3RQtXjFFq/jAfgSJYDiQGNXWCZvHTuQ==}
+  /effect@2.0.0-next.58:
+    resolution: {integrity: sha512-3JtlhJWIZlKe2krJp8ZsKCWCsKMemRVMNOGKtW6bLbg1ZYDi9riuDO44heqEyh7mVBhGsLh/Ut+Hz4olFbfhyg==}
     dev: true
 
   /emoji-regex@8.0.0:
