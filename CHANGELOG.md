@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.21.0
+
+### Minor Changes
+
+- a4bb6aa: Update effect.
+
 ## 0.20.1
 
 ### Patch Changes
