@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.22.0
+
+### Minor Changes
+
+- 3f366e0: Update effect.
+
 ## 0.21.0
 
 ### Minor Changes
