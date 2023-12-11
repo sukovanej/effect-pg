@@ -47,7 +47,7 @@ export const makeConfig = (options?: Partial<ConfigOptions>) => {
 
 export const setConfig = (options?: Partial<ConfigOptions>) =>
   pipe(
-    Effect.config(makeConfig(options)),
+    makeConfig(options),
     Effect.map((config) =>
       pipe(
         Context.make(internal_context.PoolConfig, config),
