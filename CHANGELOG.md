@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.23.1
+
+### Patch Changes
+
+- ce76f84: Update @effect/schema.
+
 ## 0.23.0
 
 ### Minor Changes
