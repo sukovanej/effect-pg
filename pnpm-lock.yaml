@@ -20,8 +20,8 @@ devDependencies:
     specifier: ^2.27.1
     version: 2.27.1
   '@effect/schema':
-    specifier: ^0.59.0
-    version: 0.59.0(effect@2.0.2)(fast-check@3.15.0)
+    specifier: ^0.59.1
+    version: 0.59.1(effect@2.0.3)(fast-check@3.15.0)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.3.0
     version: 4.3.0(prettier@3.1.1)
@@ -32,11 +32,11 @@ devDependencies:
     specifier: ^1.1.3
     version: 1.1.3(vitest@1.1.3)
   effect:
-    specifier: 2.0.2
-    version: 2.0.2
+    specifier: 2.0.3
+    version: 2.0.3
   effect-dotenv:
     specifier: ^0.16.1
-    version: 0.16.1(effect@2.0.2)
+    version: 0.16.1(effect@2.0.3)
   prettier:
     specifier: ^3.1.1
     version: 3.1.1
@@ -382,13 +382,13 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@effect/schema@0.59.0(effect@2.0.2)(fast-check@3.15.0):
-    resolution: {integrity: sha512-gDrRXZKXVporp9f4EqL1sSjdU9AM1Lhn/PCWXhuj/+rkdHSvQiE51LhgXRQRQfM35YyMFxvnHgPEY7CnJmPDjA==}
+  /@effect/schema@0.59.1(effect@2.0.3)(fast-check@3.15.0):
+    resolution: {integrity: sha512-dighL1fSjOLNupETYaN4hvUo9zxvdi4w+lgJ9lHKYFZapaFxR2f8ZKB2WunsSGnF5mCyWLDS3GMtfLeqz2I2ug==}
     peerDependencies:
-      effect: ^2.0.2
+      effect: ^2.0.3
       fast-check: ^3.13.2
     dependencies:
-      effect: 2.0.2
+      effect: 2.0.3
       fast-check: 3.15.0
     dev: true
 
@@ -845,8 +845,8 @@ packages:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: true
 
-  /@types/node@20.10.7:
-    resolution: {integrity: sha512-fRbIKb8C/Y2lXxB5eVMj4IU7xpdox0Lh8bUPEdtLysaylsml1hOOx1+STloRs/B9nf7C6kPRmmg/V7aQW7usNg==}
+  /@types/node@20.10.8:
+    resolution: {integrity: sha512-f8nQs3cLxbAFc00vEU59yf9UyGUftkPaLGfvbVOIDdx2i1b8epBqj2aNGyP19fiyXWvlmZ7qC1XLjAzw/OKIeA==}
     dependencies:
       undici-types: 5.26.5
 
@@ -857,14 +857,14 @@ packages:
   /@types/pg-cursor@2.7.2:
     resolution: {integrity: sha512-m3xT8bVFCvx98LuzbvXyuCdT/Hjdd/v8ml4jL4K1QF70Y8clOfCFdgoaEB1FWdcSwcpoFYZTJQaMD9/GQ27efQ==}
     dependencies:
-      '@types/node': 20.10.7
+      '@types/node': 20.10.8
       '@types/pg': 8.10.9
     dev: true
 
   /@types/pg@8.10.9:
     resolution: {integrity: sha512-UksbANNE/f8w0wOMxVKKIrLCbEMV+oM1uKejmwXr39olg4xqcfBDbXxObJAt6XxHbDa4XTKOlUEcEltXDX+XLQ==}
     dependencies:
-      '@types/node': 20.10.7
+      '@types/node': 20.10.8
       pg-protocol: 1.6.0
       pg-types: 4.0.1
 
@@ -1372,17 +1372,17 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /effect-dotenv@0.16.1(effect@2.0.2):
+  /effect-dotenv@0.16.1(effect@2.0.3):
     resolution: {integrity: sha512-uzYqDjnIOdlhr535vtXwlJlJnLsKTWWcpW+uCrVaZtnh/C522SgZvsS7IM5MWq1Ri0abJO8MjdZH3+U1vx7wWA==}
     peerDependencies:
       effect: ^2.0.0
     dependencies:
       dotenv: 16.3.1
-      effect: 2.0.2
+      effect: 2.0.3
     dev: true
 
-  /effect@2.0.2:
-    resolution: {integrity: sha512-YrB7AiBsvgWbA2paV0LB47Ux4SfK46v9hWwUFceN6zDgxpEzVyWfRX3tkFEGNV4t8OvPqlfyew+dmf7YzkbDYQ==}
+  /effect@2.0.3:
+    resolution: {integrity: sha512-I/XvcbHypegNFWCr/arbfIR6pA+8JpSqv9wS4xOrgXypQMRj8H3wRorTcUiPmcQ0e6Ko67CdI2XZpjx7z0Ev/A==}
     dev: true
 
   /emoji-regex@8.0.0:
@@ -1440,7 +1440,7 @@ packages:
       object.assign: 4.1.5
       regexp.prototype.flags: 1.5.1
       safe-array-concat: 1.0.1
-      safe-regex-test: 1.0.0
+      safe-regex-test: 1.0.1
       string.prototype.trim: 1.2.8
       string.prototype.trimend: 1.0.7
       string.prototype.trimstart: 1.0.7
@@ -2951,8 +2951,9 @@ packages:
       isarray: 2.0.5
     dev: true
 
-  /safe-regex-test@1.0.0:
-    resolution: {integrity: sha512-JBUUzyOgEwXQY1NuPtvcj/qcBDbDmEvWufhlnXZIm75DEHp+afM1r1ujJpJsV/gSM4t59tpDyPi1sd6ZaPFfsA==}
+  /safe-regex-test@1.0.1:
+    resolution: {integrity: sha512-Y5NejJTTliTyY4H7sipGqY+RX5P87i3F7c4Rcepy72nq+mNLhIsD0W4c7kEmduMDQCSqtPsXPlSTsFhh2LQv+g==}
+    engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
       get-intrinsic: 1.2.2
