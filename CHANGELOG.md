@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.23.3
+
+### Patch Changes
+
+- 4d254bd: Update dependencies.
+
 ## 0.23.2
 
 ### Patch Changes
