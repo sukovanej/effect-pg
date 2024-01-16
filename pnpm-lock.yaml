@@ -20,8 +20,8 @@ devDependencies:
     specifier: ^2.27.1
     version: 2.27.1
   '@effect/schema':
-    specifier: ^0.60.1
-    version: 0.60.1(effect@2.0.5)(fast-check@3.15.0)
+    specifier: ^0.60.2
+    version: 0.60.2(effect@2.1.0)(fast-check@3.15.0)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.3.0
     version: 4.3.0(prettier@3.2.2)
@@ -32,11 +32,11 @@ devDependencies:
     specifier: ^1.2.0
     version: 1.2.0(vitest@1.2.0)
   effect:
-    specifier: 2.0.5
-    version: 2.0.5
+    specifier: 2.1.0
+    version: 2.1.0
   effect-dotenv:
-    specifier: ^0.16.1
-    version: 0.16.1(effect@2.0.5)
+    specifier: ^0.16.2
+    version: 0.16.2(effect@2.1.0)
   prettier:
     specifier: ^3.2.2
     version: 3.2.2
@@ -382,13 +382,13 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@effect/schema@0.60.1(effect@2.0.5)(fast-check@3.15.0):
-    resolution: {integrity: sha512-akzHdUrja0qI9B9k+eUyfC4dM5EmDclG9LULnA4D5DlsAdnkSj5wz/EgDrq4QdtmP2ZZ/lBFw1yUzxdZ7UWauw==}
+  /@effect/schema@0.60.2(effect@2.1.0)(fast-check@3.15.0):
+    resolution: {integrity: sha512-JBNODnYbk6/rMSNW6rxJTI/fy69WS4e8WiX6e3NYQ22s6YEqlYemhyiaQSjX2/JZd4fVgIjJvr7QtFv54ENg3A==}
     peerDependencies:
-      effect: ^2.0.5
+      effect: ^2.1.0
       fast-check: ^3.13.2
     dependencies:
-      effect: 2.0.5
+      effect: 2.1.0
       fast-check: 3.15.0
     dev: true
 
@@ -845,8 +845,8 @@ packages:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: true
 
-  /@types/node@20.11.1:
-    resolution: {integrity: sha512-DsXojJUES2M+FE8CpptJTKpg+r54moV9ZEncPstni1WHFmTcCzeFLnMFfyhCVS8XNOy/OQG+8lVxRLRrVHmV5A==}
+  /@types/node@20.11.3:
+    resolution: {integrity: sha512-nrlmbvGPNGaj84IJZXMPhQuCMEVTT/hXZMJJG/aIqVL9fKxqk814sGGtJA4GI6hpJSLQjpi6cn0Qx9eOf9SDVg==}
     dependencies:
       undici-types: 5.26.5
 
@@ -857,14 +857,14 @@ packages:
   /@types/pg-cursor@2.7.2:
     resolution: {integrity: sha512-m3xT8bVFCvx98LuzbvXyuCdT/Hjdd/v8ml4jL4K1QF70Y8clOfCFdgoaEB1FWdcSwcpoFYZTJQaMD9/GQ27efQ==}
     dependencies:
-      '@types/node': 20.11.1
+      '@types/node': 20.11.3
       '@types/pg': 8.10.9
     dev: true
 
   /@types/pg@8.10.9:
     resolution: {integrity: sha512-UksbANNE/f8w0wOMxVKKIrLCbEMV+oM1uKejmwXr39olg4xqcfBDbXxObJAt6XxHbDa4XTKOlUEcEltXDX+XLQ==}
     dependencies:
-      '@types/node': 20.11.1
+      '@types/node': 20.11.3
       pg-protocol: 1.6.0
       pg-types: 4.0.1
 
@@ -1372,17 +1372,17 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /effect-dotenv@0.16.1(effect@2.0.5):
-    resolution: {integrity: sha512-uzYqDjnIOdlhr535vtXwlJlJnLsKTWWcpW+uCrVaZtnh/C522SgZvsS7IM5MWq1Ri0abJO8MjdZH3+U1vx7wWA==}
+  /effect-dotenv@0.16.2(effect@2.1.0):
+    resolution: {integrity: sha512-jPVAT+oaeeM75QEQGMmL3kPYNL+wtWP0jx/N04T1UJoqgxjjRKSZXMtWbNinJw2bH1vq9bzAF0SA4sM463tUeg==}
     peerDependencies:
-      effect: ^2.0.0
+      effect: ^2.1.0
     dependencies:
       dotenv: 16.3.1
-      effect: 2.0.5
+      effect: 2.1.0
     dev: true
 
-  /effect@2.0.5:
-    resolution: {integrity: sha512-xu3w2lFfjLvmeNlzdSXgtlwynbKr+FcEkfVHDpkJno41gHfuGZDnpAGHw//fOPqNUdcX728vtZkyRvZ0xMlgag==}
+  /effect@2.1.0:
+    resolution: {integrity: sha512-fZfyDtlw5RSUA5oQTBu+LOjXwcQb2lGfW7XKKCd34aELjoUKeIxm8HVo6bkpPLlPARqyyT5DfrlIhjrg2RiZCQ==}
     dev: true
 
   /emoji-regex@8.0.0:
@@ -1439,7 +1439,7 @@ packages:
       object-keys: 1.1.1
       object.assign: 4.1.5
       regexp.prototype.flags: 1.5.1
-      safe-array-concat: 1.0.1
+      safe-array-concat: 1.1.0
       safe-regex-test: 1.0.2
       string.prototype.trim: 1.2.8
       string.prototype.trimend: 1.0.7
@@ -2941,8 +2941,8 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /safe-array-concat@1.0.1:
-    resolution: {integrity: sha512-6XbUAseYE2KtOuGueyeobCySj9L4+66Tn6KQMOPQJrAJEowYKW/YR/MGJZl7FdydUdaFu4LYyDZjxf4/Nmo23Q==}
+  /safe-array-concat@1.1.0:
+    resolution: {integrity: sha512-ZdQ0Jeb9Ofti4hbt5lX3T2JcAamT9hfzYU1MNB+z/jaEbB6wfFfPIR/zEORmZqobkCCJhSjodobH6WHNmJ97dg==}
     engines: {node: '>=0.4'}
     dependencies:
       call-bind: 1.0.5
