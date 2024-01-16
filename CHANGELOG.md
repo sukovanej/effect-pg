@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.23.4
+
+### Patch Changes
+
+- 3866673: Update effect.
+
 ## 0.23.3
 
 ### Patch Changes
