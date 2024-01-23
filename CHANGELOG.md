@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.23.5
+
+### Patch Changes
+
+- ec401f3: Update effect.
+
 ## 0.23.4
 
 ### Patch Changes
