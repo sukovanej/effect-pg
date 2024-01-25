@@ -32,13 +32,13 @@ const convertError = (exception: Cause.UnknownException) => {
 };
 
 export const query: {
-  <_, A = unknown>(
+  <R, _, A = unknown>(
     sql: string,
-    schema: Schema.Schema<_, A>
+    schema: Schema.Schema<R, _, A>
   ): (
     ...values: unknown[]
   ) => Effect.Effect<
-    pg.ClientBase,
+    R | pg.ClientBase,
     PgError.PostgresQueryError | PgError.PostgresValidationError,
     A[]
   >;
@@ -48,8 +48,8 @@ export const query: {
   ): (
     ...values: unknown[]
   ) => Effect.Effect<pg.ClientBase, PgError.PostgresQueryError, unknown[]>;
-} = (sql: string, schema?: Schema.Schema<unknown, unknown>) => {
-  const parse = schema ? Schema.parse(schema) : undefined;
+} = (sql: string, schema?: Schema.Schema<any, unknown, unknown>) => {
+  const parse = schema ? Schema.decodeUnknown(schema) : undefined;
 
   return (...values: unknown[]): Effect.Effect<pg.ClientBase, any, any> =>
     pipe(
@@ -96,7 +96,7 @@ export const queryOne: {
     | PgError.PostgresUnexpectedNumberOfRowsError,
     A
   >;
-} = (sql: string, schema?: Schema.Schema<unknown, unknown>) => {
+} = (sql: string, schema?: Schema.Schema<any, unknown, unknown>) => {
   const runQuery = schema ? query(sql, schema) : query(sql);
 
   return (...values: unknown[]): Effect.Effect<pg.ClientBase, any, any> =>
@@ -118,14 +118,14 @@ const defaultQueryStreamOptions: Pg.QueryStreamOptions = {
 };
 
 export const queryStream: {
-  <_, A>(
+  <R, _, A>(
     queryText: string,
-    schema: Schema.Schema<_, A>,
+    schema: Schema.Schema<R, _, A>,
     options?: Partial<Pg.QueryStreamOptions>
   ): (
     ...values: unknown[]
   ) => Stream.Stream<
-    pg.ClientBase,
+    R | pg.ClientBase,
     PgError.PostgresQueryError | PgError.PostgresValidationError,
     A
   >;
@@ -140,14 +140,14 @@ export const queryStream: {
   sql: string,
   ...args:
     | [
-        schema: Schema.Schema<unknown, unknown>,
+        schema: Schema.Schema<any, any>,
         options?: Partial<Pg.QueryStreamOptions>,
       ]
     | [options?: Partial<Pg.QueryStreamOptions>]
 ) => {
   const { parse, options } = Schema.isSchema(args[0])
     ? {
-        parse: Schema.parse(args[0]),
+        parse: Schema.decodeUnknown(args[0]),
         options: { ...defaultQueryStreamOptions, ...args[1] },
       }
     : {
