@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.24.1
+
+### Patch Changes
+
+- e3fcba3: Fix @effect/schema peer dependency version.
+
 ## 0.24.0
 
 ### Minor Changes
