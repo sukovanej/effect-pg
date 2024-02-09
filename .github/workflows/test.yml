@@ -12,7 +12,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
   node:
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     name: Node
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -21,8 +37,27 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/setup
       - run: pnpm test
+        env:
+          TEST_POSTGRES_USER: postgres
+          TEST_POSTGRES_PASSWORD: postgres
+          TEST_POSTGRES_DATABASE: postgres
 
   bun:
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     name: Bun
     runs-on: ubuntu-latest
     steps:
@@ -32,3 +67,7 @@ jobs:
       - name: Install bun
         uses: oven-sh/setup-bun@v1
       - run: bun vitest
+        env:
+          TEST_POSTGRES_USER: postgres
+          TEST_POSTGRES_PASSWORD: postgres
+          TEST_POSTGRES_DATABASE: postgres
