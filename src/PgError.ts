@@ -1,36 +1,72 @@
-import * as ParseResult from '@effect/schema/ParseResult';
-import * as Data from 'effect/Data';
+/**
+ * Pg errors
+ * @since 1.0.0
+ */
+import type { ParseResult } from "@effect/schema"
+import { Data } from "effect"
 
+/**
+ * @category models
+ * @since 1.0.0
+ */
 export class PostgresUnknownError extends Data.TaggedError(
-  'PostgresUnknownError'
+  "PostgresUnknownError"
 )<{ error: unknown }> {}
 
+/**
+ * @category models
+ * @since 1.0.0
+ */
 export class PostgresConnectionError extends Data.TaggedError(
-  'PostgresConnectionError'
+  "PostgresConnectionError"
 )<{ error: unknown }> {}
 
+/**
+ * @category models
+ * @since 1.0.0
+ */
 export class PostgresTableDoesntExistError extends Data.TaggedError(
-  'PostgresTableDoesntExistError'
+  "PostgresTableDoesntExistError"
 )<{ error: unknown }> {}
 
+/**
+ * @category models
+ * @since 1.0.0
+ */
 export class PostgresValidationError extends Data.TaggedError(
-  'PostgresValidationError'
+  "PostgresValidationError"
 )<{ error: ParseResult.ParseError }> {}
 
+/**
+ * @category models
+ * @since 1.0.0
+ */
 export class PostgresUnexpectedNumberOfRowsError extends Data.TaggedError(
-  'PostgresUnexpectedNumberOfRowsError'
+  "PostgresUnexpectedNumberOfRowsError"
 )<{ expectedRows: number; receivedRows: number }> {}
 
+/**
+ * @category models
+ * @since 1.0.0
+ */
 export class PostgresDuplicateTableError extends Data.TaggedError(
-  'PostgresDuplicateTableError'
+  "PostgresDuplicateTableError"
 )<{ error: unknown }> {}
 
+/**
+ * @category models
+ * @since 1.0.0
+ */
 export class PostgresInvalidParametersError extends Data.TaggedError(
-  'PostgresInvalidParametersError'
+  "PostgresInvalidParametersError"
 )<{ error: unknown }> {}
 
+/**
+ * @category models
+ * @since 1.0.0
+ */
 export type PostgresQueryError =
   | PostgresTableDoesntExistError
   | PostgresUnknownError
   | PostgresDuplicateTableError
-  | PostgresInvalidParametersError;
+  | PostgresInvalidParametersError

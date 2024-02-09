@@ -1,65 +1,62 @@
-import * as pg from 'pg';
-import Cursor from 'pg-cursor';
+import type * as pg from "pg"
+import Cursor from "pg-cursor"
 
-import * as Schema from '@effect/schema/Schema';
-import type * as Pg from 'effect-pg/Pg';
-import * as PgError from 'effect-pg/PgError';
-import * as internal_context from 'effect-pg/internal/context';
-import * as Cause from 'effect/Cause';
-import * as Chunk from 'effect/Chunk';
-import * as Effect from 'effect/Effect';
-import * as Exit from 'effect/Exit';
-import { flow, pipe } from 'effect/Function';
-import * as Option from 'effect/Option';
-import * as Predicate from 'effect/Predicate';
-import * as Stream from 'effect/Stream';
+import * as Schema from "@effect/schema/Schema"
+import type * as Cause from "effect/Cause"
+import * as Chunk from "effect/Chunk"
+import * as Effect from "effect/Effect"
+import * as Exit from "effect/Exit"
+import { flow, pipe } from "effect/Function"
+import * as Option from "effect/Option"
+import * as Predicate from "effect/Predicate"
+import * as Stream from "effect/Stream"
+import * as PgError from "../PgError.js"
+import type * as PgQuery from "../PgQuery.js"
+import * as internal_context from "./context.js"
 
+/** @internal */
 const isObjectWithCode = (code: string, object: unknown) =>
-  Predicate.isRecord(object) && 'code' in object && object['code'] === code;
+  Predicate.isRecord(object) && "code" in object && object["code"] === code
 
+/** @internal */
 const convertError = (exception: Cause.UnknownException) => {
-  const error = exception.error;
+  const error = exception.error
 
-  if (isObjectWithCode('42P01', error)) {
-    return new PgError.PostgresTableDoesntExistError({ error });
-  } else if (isObjectWithCode('42P07', error)) {
-    return new PgError.PostgresDuplicateTableError({ error });
-  } else if (isObjectWithCode('08P01', error)) {
-    return new PgError.PostgresInvalidParametersError({ error });
+  if (isObjectWithCode("42P01", error)) {
+    return new PgError.PostgresTableDoesntExistError({ error })
+  } else if (isObjectWithCode("42P07", error)) {
+    return new PgError.PostgresDuplicateTableError({ error })
+  } else if (isObjectWithCode("08P01", error)) {
+    return new PgError.PostgresInvalidParametersError({ error })
   }
 
-  return new PgError.PostgresUnknownError({ error });
-};
+  return new PgError.PostgresUnknownError({ error })
+}
 
-export const query: {
+/** @internal */
+export const all: {
   <R, _, A = unknown>(
     sql: string,
-    schema: Schema.Schema<R, _, A>
+    schema: Schema.Schema<A, _, R>
   ): (
-    ...values: unknown[]
-  ) => Effect.Effect<
-    R | pg.ClientBase,
-    PgError.PostgresQueryError | PgError.PostgresValidationError,
-    A[]
-  >;
+    ...values: Array<unknown>
+  ) => Effect.Effect<Array<A>, PgError.PostgresQueryError | PgError.PostgresValidationError, R | pg.ClientBase>
 
   (
     sql: string
   ): (
-    ...values: unknown[]
-  ) => Effect.Effect<pg.ClientBase, PgError.PostgresQueryError, unknown[]>;
-} = (sql: string, schema?: Schema.Schema<any, unknown, unknown>) => {
-  const parse = schema ? Schema.decodeUnknown(schema) : undefined;
+    ...values: Array<unknown>
+  ) => Effect.Effect<Array<unknown>, PgError.PostgresQueryError, pg.ClientBase>
+} = (sql: string, schema?: Schema.Schema<unknown, unknown, any>) => {
+  const parse = schema ? Schema.decodeUnknown(schema) : undefined
 
-  return (...values: unknown[]): Effect.Effect<pg.ClientBase, any, any> =>
+  return (...values: Array<unknown>): Effect.Effect<any, any, pg.ClientBase> =>
     pipe(
-      Effect.flatMap(internal_context.ClientBase, (client) =>
-        Effect.tryPromise(() => client.query(sql, values))
-      ),
+      Effect.flatMap(internal_context.ClientBase, (client) => Effect.tryPromise(() => client.query(sql, values))),
       Effect.mapError(convertError),
       Effect.flatMap((result) => {
         if (parse === undefined) {
-          return Effect.succeed(result.rows);
+          return Effect.succeed(result.rows)
         }
 
         return pipe(
@@ -68,108 +65,102 @@ export const query: {
           Effect.mapError(
             (error) => new PgError.PostgresValidationError({ error })
           )
-        );
+        )
       })
-    );
-};
+    )
+}
 
-export const queryOne: {
+/** @internal */
+export const one: {
   (
     sql: string
   ): (
-    ...values: unknown[]
-  ) => Effect.Effect<
-    pg.ClientBase,
-    PgError.PostgresQueryError | PgError.PostgresUnexpectedNumberOfRowsError,
-    unknown
-  >;
+    ...values: Array<unknown>
+  ) => Effect.Effect<unknown, PgError.PostgresQueryError | PgError.PostgresUnexpectedNumberOfRowsError, pg.ClientBase>
 
-  <_, A = unknown>(
+  <R, _, A = unknown>(
     sql: string,
-    schema?: Schema.Schema<_, A>
+    schema?: Schema.Schema<A, _, R>
   ): (
-    ...values: unknown[]
+    ...values: Array<unknown>
   ) => Effect.Effect<
-    pg.ClientBase,
+    A,
     | PgError.PostgresQueryError
     | PgError.PostgresValidationError
     | PgError.PostgresUnexpectedNumberOfRowsError,
-    A
-  >;
-} = (sql: string, schema?: Schema.Schema<any, unknown, unknown>) => {
-  const runQuery = schema ? query(sql, schema) : query(sql);
+    pg.ClientBase | R
+  >
+} = (sql: string, schema?: Schema.Schema<unknown, unknown, any>) => {
+  const runQuery = schema ? all(sql, schema) : all(sql)
 
-  return (...values: unknown[]): Effect.Effect<pg.ClientBase, any, any> =>
+  return (...values: Array<unknown>): Effect.Effect<any, any, pg.ClientBase> =>
     runQuery(...values).pipe(
       Effect.filterOrFail(
         (rows) => rows.length === 1,
         (rows) =>
           new PgError.PostgresUnexpectedNumberOfRowsError({
             expectedRows: 1,
-            receivedRows: rows.length,
+            receivedRows: rows.length
           })
       ),
       Effect.map((rows) => rows[0] as unknown)
-    );
-};
+    )
+}
 
-const defaultQueryStreamOptions: Pg.QueryStreamOptions = {
-  maxRowsPerRead: 10,
-};
+/** @internal */
+const defaultQueryStreamOptions: PgQuery.QueryStreamOptions = {
+  maxRowsPerRead: 10
+}
 
-export const queryStream: {
+/** @internal */
+export const stream: {
   <R, _, A>(
     queryText: string,
-    schema: Schema.Schema<R, _, A>,
-    options?: Partial<Pg.QueryStreamOptions>
+    schema: Schema.Schema<A, _, R>,
+    options?: Partial<PgQuery.QueryStreamOptions>
   ): (
-    ...values: unknown[]
-  ) => Stream.Stream<
-    R | pg.ClientBase,
-    PgError.PostgresQueryError | PgError.PostgresValidationError,
-    A
-  >;
+    ...values: Array<unknown>
+  ) => Stream.Stream<A, PgError.PostgresQueryError | PgError.PostgresValidationError, pg.ClientBase | R>
 
   (
     queryText: string,
-    options?: Partial<Pg.QueryStreamOptions>
+    options?: Partial<PgQuery.QueryStreamOptions>
   ): (
-    ...values: unknown[]
-  ) => Stream.Stream<pg.ClientBase, PgError.PostgresQueryError, unknown>;
+    ...values: Array<unknown>
+  ) => Stream.Stream<unknown, PgError.PostgresQueryError, pg.ClientBase>
 } = (
   sql: string,
   ...args:
     | [
-        schema: Schema.Schema<any, any>,
-        options?: Partial<Pg.QueryStreamOptions>,
-      ]
-    | [options?: Partial<Pg.QueryStreamOptions>]
+      schema: Schema.Schema<any, any, any>,
+      options?: Partial<PgQuery.QueryStreamOptions> | undefined
+    ]
+    | [options?: Partial<PgQuery.QueryStreamOptions> | undefined]
 ) => {
-  const { parse, options } = Schema.isSchema(args[0])
+  const { options, parse } = Schema.isSchema(args[0])
     ? {
-        parse: Schema.decodeUnknown(args[0]),
-        options: { ...defaultQueryStreamOptions, ...args[1] },
-      }
+      parse: Schema.decodeUnknown(args[0]),
+      options: { ...defaultQueryStreamOptions, ...args[1] }
+    }
     : {
-        parse: undefined,
-        options: { ...defaultQueryStreamOptions, ...args[0] },
-      };
+      parse: undefined,
+      options: { ...defaultQueryStreamOptions, ...args[0] }
+    }
 
-  return (...values: unknown[]) =>
+  return (...values: Array<unknown>) =>
     pipe(
       Effect.flatMap(internal_context.ClientBase, (client) =>
         Effect.acquireRelease(
           Effect.succeed(client.query(new Cursor(sql, values))),
           (cursor) => Effect.tryPromise(() => cursor.close()).pipe(Effect.orDie)
-        )
-      ),
+        )),
       Effect.map((cursor) =>
         pipe(
           Effect.tryPromise(() => cursor.read(options.maxRowsPerRead)),
           Effect.mapError(flow(convertError, Option.some)),
           Effect.flatMap((rows) => {
             if (parse === undefined) {
-              return Effect.succeed(rows);
+              return Effect.succeed(rows)
             }
 
             return pipe(
@@ -178,27 +169,33 @@ export const queryStream: {
               Effect.mapError((error) =>
                 Option.some(
                   new PgError.PostgresValidationError({
-                    error,
+                    error
                   }) as unknown as PgError.PostgresUnknownError
                 )
               )
-            );
+            )
           }),
           Effect.map(Chunk.fromIterable),
           Effect.filterOrFail(Chunk.isNonEmpty, () => Option.none())
         )
       ),
       Stream.fromPull
-    );
-};
+    )
+}
 
-export const begin = query('BEGIN')();
-export const commit = query('COMMIT')();
-export const rollback = query('ROLLBACK')();
+/** @internal */
+export const begin = all("BEGIN")()
 
+/** @internal */
+export const commit = all("COMMIT")()
+
+/** @internal */
+export const rollback = all("ROLLBACK")()
+
+/** @internal */
 export const transaction = <R, E, A>(
-  self: Effect.Effect<R, E, A>
-): Effect.Effect<R | pg.ClientBase, E | PgError.PostgresQueryError, A> =>
+  self: Effect.Effect<A, E, R>
+): Effect.Effect<A, E | PgError.PostgresQueryError, R | pg.ClientBase> =>
   Effect.acquireUseRelease(
     begin,
     () => self,
@@ -207,17 +204,18 @@ export const transaction = <R, E, A>(
         exit,
         Exit.match({
           onSuccess: () => commit,
-          onFailure: () => rollback,
+          onFailure: () => rollback
         }),
         Effect.orDie
       )
-  );
+  )
 
+/** @internal */
 export const transactionRollback = <R, E, A>(
-  self: Effect.Effect<R, E, A>
-): Effect.Effect<R | pg.ClientBase, E | PgError.PostgresQueryError, A> =>
+  self: Effect.Effect<A, E, R>
+): Effect.Effect<A, E | PgError.PostgresQueryError, R | pg.ClientBase> =>
   Effect.acquireUseRelease(
     begin,
     () => self,
     () => Effect.orDie(rollback)
-  );
+  )
