@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.25.0
+
+### Minor Changes
+
+- b6ea148: Minor effect update. Align setup with the effect ecosystem.
+
 ## 0.24.1
 
 ### Patch Changes
