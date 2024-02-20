@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.25.1
+
+### Patch Changes
+
+- 3ca3609: Update effect.
+
 ## 0.25.0
 
 ### Minor Changes
