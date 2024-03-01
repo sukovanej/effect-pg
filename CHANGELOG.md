@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.25.3
+
+### Patch Changes
+
+- 58de301: Update effect packages.
+
 ## 0.25.2
 
 ### Patch Changes
