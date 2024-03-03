@@ -2,8 +2,8 @@
  * Pg errors
  * @since 1.0.0
  */
-import type { ParseResult } from "@effect/schema"
-import { Data } from "effect"
+import type * as ParseResult from "@effect/schema/ParseResult"
+import * as Data from "effect/Data"
 
 /**
  * @category models
