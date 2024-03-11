@@ -1,5 +1,12 @@
 # effect-pg
 
+## 0.25.4
+
+### Patch Changes
+
+- c3724f9: Update effect.
+- 23eee07: Use namespace imports.
+
 ## 0.25.3
 
 ### Patch Changes
