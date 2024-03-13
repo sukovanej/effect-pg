@@ -139,7 +139,7 @@ export const stream: {
 ) => {
   const { options, parse } = Schema.isSchema(args[0])
     ? {
-      parse: Schema.decodeUnknown(args[0]),
+      parse: Schema.decodeUnknown<any, any, any>(args[0]),
       options: { ...defaultQueryStreamOptions, ...args[1] }
     }
     : {
