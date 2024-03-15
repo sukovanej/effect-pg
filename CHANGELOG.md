@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.25.8
+
+### Patch Changes
+
+- d6200e1: Update effect.
+
 ## 0.25.7
 
 ### Patch Changes
