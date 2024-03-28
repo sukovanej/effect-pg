@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.25.14
+
+### Patch Changes
+
+- 006a1bb: Update effect.
+
 ## 0.25.13
 
 ### Patch Changes
