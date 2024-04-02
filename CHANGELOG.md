@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.25.15
+
+### Patch Changes
+
+- 8c5167c: Update @effect/schema
+
 ## 0.25.14
 
 ### Patch Changes
