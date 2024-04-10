@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.25.17
+
+### Patch Changes
+
+- 9ad6a5d: Update effect.
+
 ## 0.25.16
 
 ### Patch Changes
