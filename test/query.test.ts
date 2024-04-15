@@ -20,7 +20,7 @@ const runTest = <E, A>(self: Effect.Effect<A, E, pg.ClientBase>) =>
     Effect.runPromise
   )
 
-const User = Schema.struct({ id: Schema.number, name: Schema.string })
+const User = Schema.Struct({ id: Schema.Number, name: Schema.String })
 
 const createUsersTable = PgQuery.all(
   "CREATE TABLE users (id SERIAL, name TEXT NOT NULL)"
@@ -120,7 +120,7 @@ describe("streaming", () => {
   test("sequence", async () => {
     const queryNumSequence = PgQuery.stream(
       "SELECT * FROM generate_series(1, $1) n",
-      Schema.struct({ n: Schema.number })
+      Schema.Struct({ n: Schema.Number })
     )
 
     const result = await pipe(
@@ -136,7 +136,7 @@ describe("streaming", () => {
   test("take", async () => {
     const queryNumSequence = PgQuery.stream(
       "SELECT * FROM generate_series(1, $1) n",
-      Schema.struct({ n: Schema.number })
+      Schema.Struct({ n: Schema.Number })
     )
 
     const result = await pipe(
@@ -153,7 +153,7 @@ describe("streaming", () => {
   test("maxRowsPerRead", async () => {
     const queryNumSequence = PgQuery.stream(
       "SELECT * FROM generate_series(1, $1) n",
-      Schema.struct({ n: Schema.number }),
+      Schema.Struct({ n: Schema.Number }),
       { maxRowsPerRead: 20 }
     )
 

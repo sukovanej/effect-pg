@@ -2,7 +2,7 @@ import { Schema } from "@effect/schema"
 import { Effect, pipe } from "effect"
 import { PgLayer, PgQuery } from "effect-pg"
 
-const User = Schema.struct({ name: Schema.string })
+const User = Schema.Struct({ name: Schema.String })
 
 const createUsersTable = PgQuery.all(
   "CREATE TABLE IF NOT EXISTS users (name TEXT NOT NULL)"
