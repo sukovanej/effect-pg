@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.26.0
+
+### Minor Changes
+
+- 960f384: Update effect.
+
 ## 0.25.17
 
 ### Patch Changes
