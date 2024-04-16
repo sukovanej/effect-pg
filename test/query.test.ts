@@ -3,7 +3,7 @@ import { assert, describe, expect, test } from "vitest"
 
 import { NodeContext } from "@effect/platform-node"
 import { Schema } from "@effect/schema"
-import { Chunk, Effect, Either, pipe, ReadonlyArray, Stream } from "effect"
+import { Array, Chunk, Effect, Either, pipe, Stream } from "effect"
 import { DotEnv } from "effect-dotenv"
 import { PgError, PgLayer, PgQuery } from "effect-pg"
 
@@ -50,7 +50,7 @@ test("Simple test 1", async () => {
 test("Simple test 2", async () => {
   const result = await pipe(
     createUsersTable(),
-    Effect.flatMap(() => Effect.all(ReadonlyArray.replicate(insertUser("milan"), 3))),
+    Effect.flatMap(() => Effect.all(Array.replicate(insertUser("milan"), 3))),
     Effect.flatMap(() => selectUser()),
     Effect.either,
     runTest
@@ -74,7 +74,7 @@ test("Table doesnt exist error", async () => {
     }),
     Effect.catchAll((error) => {
       expect(error._tag).toEqual("PostgresTableDoesntExistError")
-      return Effect.unit
+      return Effect.void
     }),
     runTest
   )
@@ -89,7 +89,7 @@ test("Duplicate table error", async () => {
     }),
     Effect.catchAll((error) => {
       expect(error._tag).toEqual("PostgresDuplicateTableError")
-      return Effect.unit
+      return Effect.void
     }),
     runTest
   )
@@ -104,7 +104,7 @@ test("Pool", async () => {
     }),
     Effect.catchAll((error) => {
       expect(error._tag).toEqual("PostgresDuplicateTableError")
-      return Effect.unit
+      return Effect.void
     }),
     PgQuery.transactionRollback,
     Effect.provide(PgLayer.PoolClient),
@@ -130,7 +130,7 @@ describe("streaming", () => {
       runTest
     )
 
-    expect(Chunk.toReadonlyArray(result)).toEqual(ReadonlyArray.range(1, 10))
+    expect(Chunk.toReadonlyArray(result)).toEqual(Array.range(1, 10))
   })
 
   test("take", async () => {
@@ -147,7 +147,7 @@ describe("streaming", () => {
       runTest
     )
 
-    expect(Chunk.toReadonlyArray(result)).toEqual(ReadonlyArray.range(1, 10))
+    expect(Chunk.toReadonlyArray(result)).toEqual(Array.range(1, 10))
   })
 
   test("maxRowsPerRead", async () => {
@@ -164,6 +164,6 @@ describe("streaming", () => {
       runTest
     )
 
-    expect(Chunk.toReadonlyArray(result)).toEqual(ReadonlyArray.range(1, 20))
+    expect(Chunk.toReadonlyArray(result)).toEqual(Array.range(1, 20))
   })
 })
