@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.27.0
+
+### Minor Changes
+
+- bccdad0: Update to effect 3.0
+
 ## 0.26.0
 
 ### Minor Changes
