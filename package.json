@@ -1,7 +1,7 @@
 {
   "name": "effect-pg",
   "type": "module",
-  "version": "0.26.0",
+  "version": "0.27.0",
   "license": "MIT",
   "author": "",
   "description": "node-pg wrapper for effect-ts",
