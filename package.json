@@ -55,7 +55,7 @@
     "babel-plugin-annotate-pure-calls": "^0.4.0",
     "effect": "3.1.2",
     "effect-dotenv": "^0.18.4",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-codegen": "0.28.0",
     "eslint-plugin-deprecation": "^2.0.0",
