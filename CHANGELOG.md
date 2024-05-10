@@ -1,5 +1,11 @@
 # effect-pg
 
+## 0.27.2
+
+### Patch Changes
+
+- [`9feb01f`](https://github.com/sukovanej/effect-pg/commit/9feb01f00ee4230094de63ab1ec6d74172bc24ca) Thanks [@sukovanej](https://github.com/sukovanej)! - Update /schema.
+
 ## 0.27.1
 
 ### Patch Changes
