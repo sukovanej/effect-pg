@@ -44,7 +44,7 @@ importers:
         version: 0.7.6
       '@effect/docgen':
         specifier: ^0.4.3
-        version: 0.4.3(tsx@4.9.3)(typescript@5.4.5)
+        version: 0.4.3(tsx@4.9.4)(typescript@5.4.5)
       '@effect/eslint-plugin':
         specifier: ^0.1.2
         version: 0.1.2
@@ -52,14 +52,14 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       '@effect/platform':
-        specifier: ^0.53.2
-        version: 0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3)
+        specifier: ^0.53.3
+        version: 0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3)
       '@effect/platform-node':
-        specifier: ^0.49.2
-        version: 0.49.2(@effect/platform@0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3))(effect@3.1.3)
+        specifier: ^0.49.3
+        version: 0.49.3(@effect/platform@0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3))(effect@3.1.3)
       '@effect/schema':
-        specifier: ^0.66.16
-        version: 0.66.16(effect@3.1.3)(fast-check@3.18.0)
+        specifier: ^0.67.0
+        version: 0.67.0(effect@3.1.3)
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.8.0
         version: 7.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
@@ -77,7 +77,7 @@ importers:
         version: 3.1.3
       effect-dotenv:
         specifier: ^0.18.4
-        version: 0.18.4(@effect/platform@0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3))(effect@3.1.3)
+        version: 0.18.4(@effect/platform@0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3))(effect@3.1.3)
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -106,11 +106,11 @@ importers:
         specifier: ^3.2.5
         version: 3.2.5
       rimraf:
-        specifier: ^5.0.5
-        version: 5.0.5
+        specifier: ^5.0.6
+        version: 5.0.6
       tsx:
-        specifier: ^4.9.3
-        version: 4.9.3
+        specifier: ^4.9.4
+        version: 4.9.4
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -346,29 +346,28 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  '@effect/platform-node-shared@0.4.21':
-    resolution: {integrity: sha512-F0cEeLQ9Qi5hr/KYxgjL2+bJT1Ti4Sd24czyCE1ETEMxUid7zca3NCBbhjDKNMkHYroGhP2bG2lVzRx048cfzg==}
+  '@effect/platform-node-shared@0.4.22':
+    resolution: {integrity: sha512-lyCiANiY+1lI0X1HEEWQLmJm1z1hr2GKe5rCXZlAHIOdZkaulbDPWQQdvnmVxebT7ohq1lZsbGzft1O0zy6o6g==}
     peerDependencies:
-      '@effect/platform': ^0.53.2
+      '@effect/platform': ^0.53.3
       effect: ^3.1.3
 
-  '@effect/platform-node@0.49.2':
-    resolution: {integrity: sha512-OvixXYcQrRZAt0T/7GJ9Li2RRr6+3HDQ8kUiiBNo+OWyg25QVfQTsTU4OjT7MHnuR0mcNzbsu5VlDskci7/T/g==}
+  '@effect/platform-node@0.49.3':
+    resolution: {integrity: sha512-UBPkjdjiIXHBMUahXZt1v0qiSmjWrBfuZrTkjcpqtLBGGZ3IUYoBlld5R85YSXCoQ/17G/wfs5L9Z26dNHXH8A==}
     peerDependencies:
-      '@effect/platform': ^0.53.2
+      '@effect/platform': ^0.53.3
       effect: ^3.1.3
 
-  '@effect/platform@0.53.2':
-    resolution: {integrity: sha512-+OeR9o7UOdWsl8xQow7FUIgoJaPjqZ5dPz2xxGv0VeNDkAJMxu7+FWDtB7tK+r4PzhA3X/x5YaGbH09mcOD+mg==}
+  '@effect/platform@0.53.3':
+    resolution: {integrity: sha512-pz+DIvOnRUswxaQtvTSCNhzksgsxVQCqkjflnchaQBvkasjwR0mLokd/XyJ2NS2JPF1oPRGQmPZkNStW6X7CzA==}
     peerDependencies:
-      '@effect/schema': ^0.66.16
+      '@effect/schema': ^0.67.0
       effect: ^3.1.3
 
-  '@effect/schema@0.66.16':
-    resolution: {integrity: sha512-sT/k5NOgKslGPzs3DUaCFuM6g2JQoIIT8jpwEorAZooplPIMK2xIspr7ECz6pp6Dc7Wz/ppXGk7HVyGZQsIYEQ==}
+  '@effect/schema@0.67.0':
+    resolution: {integrity: sha512-X9vrnHAQf8IYV9joxn+YpKIkZT8pWS36jQPB4EBVdzG/kFS84eQWjFqM/HVL3BLDOHVh0lV9Rf5pJJTXaCfGXA==}
     peerDependencies:
       effect: ^3.1.3
-      fast-check: ^3.13.2
 
   '@esbuild/aix-ppc64@0.20.2':
     resolution: {integrity: sha512-D+EBOJHXdNZcLJRBkhENNG8Wji2kgc9AZ9KiPr1JuZjsNtyHzrsfLRrY0tk2H2aoFu6RANO1y1iPPUCDYWkb5g==}
@@ -1418,8 +1417,8 @@ packages:
   effect@3.1.3:
     resolution: {integrity: sha512-afL9sbn4m9fCERYMLgUgtJC8+JvHb62zh0Q3v0O56z4aMAEdrrd+DKvLtlTbonQjgdOB37frE9LJuwUO7DV0ww==}
 
-  electron-to-chromium@1.4.762:
-    resolution: {integrity: sha512-rrFvGweLxPwwSwJOjIopy3Vr+J3cIPtZzuc74bmlvmBIgQO3VYJDvVrlj94iKZ3ukXUH64Ex31hSfRTLqvjYJQ==}
+  electron-to-chromium@1.4.763:
+    resolution: {integrity: sha512-k4J8NrtJ9QrvHLRo8Q18OncqBCB7tIUyqxRcJnlonQ0ioHKYB988GcDFF3ZePmnb8eHEopDs/wPHR/iGAFgoUQ==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -2847,8 +2846,8 @@ packages:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
 
-  rimraf@5.0.5:
-    resolution: {integrity: sha512-CqDakW+hMe/Bz202FPEymy68P+G50RfMQK+Qo5YUqc9SPipvbGjCGKd0RSKEelbsfQuw3g5NZDSrlZZAJurH1A==}
+  rimraf@5.0.6:
+    resolution: {integrity: sha512-X72SgyOf+1lFnGM6gYcmZ4+jMOwuT4E4SajKQzUIlI7EoR5eFHMhS/wf8Ll0mN+w2bxcIVldrJQ6xT7HFQywjg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -3169,8 +3168,8 @@ packages:
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
 
-  tsx@4.9.3:
-    resolution: {integrity: sha512-czVbetlILiyJZI5zGlj2kw9vFiSeyra9liPD4nG+Thh4pKTi0AmMEQ8zdV/L2xbIVKrIqif4sUNrsMAOksx9Zg==}
+  tsx@4.9.4:
+    resolution: {integrity: sha512-TlSJTVn2taGGDgdV3jAqCj7WQ/CafCB5p4SbG7W2Bl/0AJWH1ShJlBbc0y2lOFTjQEVAAULSTlmehw/Mwv3S/Q==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -3236,8 +3235,8 @@ packages:
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
-  undici@6.16.0:
-    resolution: {integrity: sha512-HQfVddOTb5PJtfLnJ1Px8bNGyIg/z7WTj1hjUSna1Itsv59Oca9JdclIU08ToNqvWWXjFLRzc9rqjnpfw5UWcQ==}
+  undici@6.16.1:
+    resolution: {integrity: sha512-NeNiTT7ixpeiL1qOIU/xTVpHpVP0svmI6PwoCKaMGaI5AsHOaRdwqU/f7Fi9eyU4u03nd5U/BC8wmRMnS9nqoA==}
     engines: {node: '>=18.17'}
 
   unist-util-stringify-position@2.0.3:
@@ -3786,13 +3785,13 @@ snapshots:
 
   '@effect/build-utils@0.7.6': {}
 
-  '@effect/docgen@0.4.3(tsx@4.9.3)(typescript@5.4.5)':
+  '@effect/docgen@0.4.3(tsx@4.9.4)(typescript@5.4.5)':
     dependencies:
       '@effect/markdown-toc': 0.1.0
       doctrine: 3.0.0
       glob: 10.3.14
       prettier: 3.2.5
-      tsx: 4.9.3
+      tsx: 4.9.4
       typescript: 5.4.5
 
   '@effect/eslint-plugin@0.1.2':
@@ -3818,34 +3817,34 @@ snapshots:
       repeat-string: 1.6.1
       strip-color: 0.1.0
 
-  '@effect/platform-node-shared@0.4.21(@effect/platform@0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3))(effect@3.1.3)':
+  '@effect/platform-node-shared@0.4.22(@effect/platform@0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3))(effect@3.1.3)':
     dependencies:
-      '@effect/platform': 0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3)
+      '@effect/platform': 0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3)
       '@parcel/watcher': 2.4.1
       effect: 3.1.3
       multipasta: 0.2.1
 
-  '@effect/platform-node@0.49.2(@effect/platform@0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3))(effect@3.1.3)':
+  '@effect/platform-node@0.49.3(@effect/platform@0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3))(effect@3.1.3)':
     dependencies:
-      '@effect/platform': 0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3)
-      '@effect/platform-node-shared': 0.4.21(@effect/platform@0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3))(effect@3.1.3)
+      '@effect/platform': 0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3)
+      '@effect/platform-node-shared': 0.4.22(@effect/platform@0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3))(effect@3.1.3)
       effect: 3.1.3
       mime: 3.0.0
-      undici: 6.16.0
+      undici: 6.16.1
       ws: 8.17.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3)':
+  '@effect/platform@0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3)':
     dependencies:
-      '@effect/schema': 0.66.16(effect@3.1.3)(fast-check@3.18.0)
+      '@effect/schema': 0.67.0(effect@3.1.3)
       effect: 3.1.3
       find-my-way-ts: 0.1.2
       multipasta: 0.2.1
       path-browserify: 1.0.1
 
-  '@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0)':
+  '@effect/schema@0.67.0(effect@3.1.3)':
     dependencies:
       effect: 3.1.3
       fast-check: 3.18.0
@@ -4564,7 +4563,7 @@ snapshots:
   browserslist@4.23.0:
     dependencies:
       caniuse-lite: 1.0.30001617
-      electron-to-chromium: 1.4.762
+      electron-to-chromium: 1.4.763
       node-releases: 2.0.14
       update-browserslist-db: 1.0.15(browserslist@4.23.0)
 
@@ -4870,15 +4869,15 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  effect-dotenv@0.18.4(@effect/platform@0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3))(effect@3.1.3):
+  effect-dotenv@0.18.4(@effect/platform@0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3))(effect@3.1.3):
     dependencies:
-      '@effect/platform': 0.53.2(@effect/schema@0.66.16(effect@3.1.3)(fast-check@3.18.0))(effect@3.1.3)
+      '@effect/platform': 0.53.3(@effect/schema@0.67.0(effect@3.1.3))(effect@3.1.3)
       dotenv: 16.4.5
       effect: 3.1.3
 
   effect@3.1.3: {}
 
-  electron-to-chromium@1.4.762: {}
+  electron-to-chromium@1.4.763: {}
 
   emoji-regex@8.0.0: {}
 
@@ -6482,7 +6481,7 @@ snapshots:
     dependencies:
       glob: 7.2.3
 
-  rimraf@5.0.5:
+  rimraf@5.0.6:
     dependencies:
       glob: 10.3.14
 
@@ -6802,7 +6801,7 @@ snapshots:
       tslib: 1.14.1
       typescript: 5.4.5
 
-  tsx@4.9.3:
+  tsx@4.9.4:
     dependencies:
       esbuild: 0.20.2
       get-tsconfig: 4.7.5
@@ -6880,7 +6879,7 @@ snapshots:
 
   undici-types@5.26.5: {}
 
-  undici@6.16.0: {}
+  undici@6.16.1: {}
 
   unist-util-stringify-position@2.0.3:
     dependencies:
